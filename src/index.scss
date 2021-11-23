@@ -1,0 +1,14 @@
+@import './style/var.scss';
+
+.container{
+  padding: $--padding;
+  font-size: 100%;
+  color: $--color-text;
+}
+.flex{
+  display: flex;
+  &-center{
+    justify-content: center;
+    align-items: center;
+  }
+}

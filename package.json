@@ -1,0 +1,69 @@
+{
+  "name": "vue-component-template",
+  "description": "vue component template",
+  "keywords": [
+    "vue",
+    "component",
+    "vue component",
+    "vue template",
+    "vue component template"
+  ],
+  "version": "1.1.0",
+  "homepage": "https://Meqn.github.io/vue-component-template/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Meqn/vue-component-template.git"
+  },
+  "author": "Mervin <mengqing723@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/Meqn/v-resize-observer/issues"
+  },
+  "scripts": {
+    "dev": "vue-cli-service serve ./example/main.js",
+    "build": "NODE_ENV=production npm run build:browser && npm run build:es && npm run build:umd",
+    "build:browser": "rollup --config build/rollup.config.browser.js",
+    "build:es": "rollup --config build/rollup.config.es.js",
+    "build:umd": "rollup --config build/rollup.config.umd.js",
+    "demo:build": "vue-cli-service build --mode production ./example/main.js",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs && npm run demo:build",
+    "test:unit": "vue-cli-service test:unit",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "vue": "^2.6.14"
+  },
+  "devDependencies": {
+    "@babel/runtime": "^7.16.0",
+    "@rollup/plugin-babel": "^5.3.0",
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "@rollup/plugin-replace": "^3.0.0",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-unit-jest": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/eslint-config-standard": "^5.1.2",
+    "@vue/test-utils": "^1.0.3",
+    "autoprefixer": "^10.4.0",
+    "babel-eslint": "^10.1.0",
+    "core-js": "^3.6.5",
+    "eslint": "^6.7.2",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "node-sass": "^4.12.0",
+    "postcss": "^8.3.11",
+    "rollup": "^2.59.0",
+    "rollup-plugin-analyzer": "^4.0.0",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-postcss": "^4.0.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-vue": "5.1.9",
+    "sass-loader": "^8.0.2",
+    "vue-template-compiler": "^2.6.11",
+    "vuepress": "^1.8.2"
+  }
+}
