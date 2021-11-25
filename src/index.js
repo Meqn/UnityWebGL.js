@@ -1,24 +1,5 @@
-import Component from './Unity.vue'
-import UnityContext from './libs/context'
+import UnityWebgl from "./UnityWebgl"
+import VueUnity from './Unity.vue'
 
-export { UnityContext }
-export default Unity
-
-
-
-const install = function (Vue) {
-  if (install.installed) return
-  install.installed = true
-
-  Vue.component('UnityWebgl', Component)
-}
-
-if (typeof window !== 'undefined' && window.Vue) {
-  Vue.use(install) // eslint-disable-line
-}
-
-export default {
-  install,
-  UnityContext,
-  Component
-}
+export { VueUnity }
+export default UnityWebgl

@@ -1,15 +1,28 @@
-const UNITY_GLOBAL_NAME = 'UnityWebGL'
+// const UNITY_GLOBAL_NAME = 'UnityWebGL'
+const UNITY_GLOBAL_NAME = '__UnityLib__'
 
 class EventSystem {
+  // event list
   eventMap = new Map()
-  global_name = UNITY_GLOBAL_NAME
   
   constructor() {
-    if (window[UNITY_GLOBAL_NAME] === undefined) {
-      window[UNITY_GLOBAL_NAME] = {}
+    if (window !== undefined) {
+      if (window[UNITY_GLOBAL_NAME] === undefined) {
+        window[UNITY_GLOBAL_NAME] = {}
+      }
     }
   }
 
+  get global_name() {
+    return UNITY_GLOBAL_NAME
+  }
+  
+  /**
+   * Registers an event to the system.
+   * @param {*} eventName event's name
+   * @param {*} eventListener event's function
+   * @returns 
+   */
   on(eventName, eventListener) {
     this.eventMap.set(eventName, eventListener)
     if (window[UNITY_GLOBAL_NAME] !== undefined) {
@@ -17,7 +30,13 @@ class EventSystem {
     }
     return this
   }
-
+  
+  /**
+   * Registers an event and it only run one time
+   * @param {*} eventName event's name
+   * @param {*} eventListener event's function
+   * @returns 
+   */
   once(eventName, eventListener) {
     const listener = function() {
       if (eventListener) {
@@ -28,7 +47,12 @@ class EventSystem {
     this.on(eventName, listener.bind(this))
     return this
   }
-
+  
+  /**
+   * Removes all the Event Listeners with a specific Event Name.
+   * @param {*} eventName event's name
+   * @returns 
+   */
   off(eventName) {
     this.eventMap.delete(eventName)
 
@@ -37,7 +61,11 @@ class EventSystem {
     }
     return this
   }
-
+  
+  /**
+   * Removes all the Event Listeners.
+   * @returns 
+   */
   clear() {
     if (window[UNITY_GLOBAL_NAME] !== undefined) {
       this.eventMap.forEach((_v, k) => {
@@ -48,7 +76,13 @@ class EventSystem {
     this.eventMap.clear()
     return this
   }
-
+  
+  /**
+   * Dispatches an event that has been registered to the event system.
+   * @param {*} eventName event's name
+   * @param  {...any} args event's parameters
+   * @returns 
+   */
   dispatch(eventName, ...args) {
     const event = this.eventMap.get(eventName)
     if (event !== undefined) {
