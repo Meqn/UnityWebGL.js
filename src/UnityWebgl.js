@@ -124,16 +124,16 @@ export default class UnityWebgl extends EventSystem {
       this.config = { ...options }
       const _canvas = queryCanvas(canvas)
       if (_canvas) {
-        this.init(_canvas)
+        this.create(_canvas)
       }
     }
   }
   
   /**
    * initialization
-   * @param {object} config 
+   * @param {object} canvas 
    */
-  init(canvas) {
+  create(canvas) {
     if (!(canvas instanceof HTMLCanvasElement)) {
       console.warn('UnityWebgl: CanvasElement not found.')
       return null
@@ -151,7 +151,7 @@ export default class UnityWebgl extends EventSystem {
             config,
             (val) => ctx._setProgression(val)
           ).then(unity => {
-            ctx.dispatch('inited')
+            ctx.dispatch('created')
             ctx.unityInstance = unity
           }).catch(err => {
             ctx.dispatch('error', err)
@@ -220,7 +220,7 @@ export default class UnityWebgl extends EventSystem {
    */
   takeScreenshot(dataType, quality) {
     if (this.canvasElement !== null) {
-      if (this.unityConfig.webglContextAttributes?.preserveDrawingBuffer !== true) {
+      if (this.config.webglContextAttributes?.preserveDrawingBuffer !== true) {
         console.warn("Taking a screenshot requires 'preserveDrawingBuffer'.")
       }
       return this.canvasElement.toDataURL(dataType, quality)
