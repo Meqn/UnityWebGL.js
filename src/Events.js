@@ -19,8 +19,8 @@ class EventSystem {
   
   /**
    * Registers an event to the system.
-   * @param {*} eventName event's name
-   * @param {*} eventListener event's function
+   * @param {string} eventName event's name
+   * @param {function} eventListener event's function
    * @returns 
    */
   on(eventName, eventListener) {
@@ -33,8 +33,8 @@ class EventSystem {
   
   /**
    * Registers an event and it only run one time
-   * @param {*} eventName event's name
-   * @param {*} eventListener event's function
+   * @param {string} eventName event's name
+   * @param {function} eventListener event's function
    * @returns 
    */
   once(eventName, eventListener) {
@@ -50,7 +50,7 @@ class EventSystem {
   
   /**
    * Removes all the Event Listeners with a specific Event Name.
-   * @param {*} eventName event's name
+   * @param {string} eventName event's name
    * @returns 
    */
   off(eventName) {
@@ -79,7 +79,7 @@ class EventSystem {
   
   /**
    * Dispatches an event that has been registered to the event system.
-   * @param {*} eventName event's name
+   * @param {string} eventName event's name
    * @param  {...any} args event's parameters
    * @returns 
    */

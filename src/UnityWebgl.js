@@ -8,7 +8,7 @@ const isPlayObject = arg => Object.prototype.toString.call(arg) === '[object Obj
  * @param {object} param callback
  * @returns 
  */
-export function unityLoader(src, { resolve, reject }) {
+function unityLoader(src, { resolve, reject }) {
   if (!src) {
     reject && reject(new Error('UnityLoader: src not found.'))
     return null
@@ -60,7 +60,7 @@ export function unityLoader(src, { resolve, reject }) {
 }
 
 /**
- * 
+ * generate UnityInstance parameters
  * @param {object} unityContext 
  * @param {object} unityProps 
  * @returns 
@@ -131,23 +131,29 @@ export default class UnityWebgl extends EventSystem {
   
   /**
    * initialization
-   * @param {object} canvas 
+   * @param {object|string} canvas HTMLCanvasElement
    */
   create(canvas) {
-    if (!(canvas instanceof HTMLCanvasElement)) {
-      console.warn('UnityWebgl: CanvasElement not found.')
-      return null
+    if (this.unityInstance && this.canvasElement && this.unityLoader) {
+      console.warn('UnityWebgl: Unity Instance already exists')
+      return false
     }
+
+    const canvasEl = queryCanvas(canvas)
+    if (!canvasEl) {
+      console.warn('UnityWebgl: CanvasElement not found.')
+      return false
+    }
+    this.canvasElement = canvasEl
     
     const ctx = this
-    this.canvasElement = canvas
-    
     const config = generateUnityInstanceParameters(this)
+
     this.unityLoader = unityLoader(config.loaderUrl, {
       resolve() {
         try {
           window.createUnityInstance(
-            canvas,
+            canvasEl,
             config,
             (val) => ctx._setProgression(val)
           ).then(unity => {
@@ -170,7 +176,7 @@ export default class UnityWebgl extends EventSystem {
 
   /**
    * set Progression
-   * @param {*} val progress
+   * @param {number} val progress
    */
   _setProgression(val) {
     if (val === 1) {
@@ -181,9 +187,9 @@ export default class UnityWebgl extends EventSystem {
   
   /**
    * Sends a message to the UnityInstance to invoke a public method.
-   * @param {*} objectName Unity scene name.
-   * @param {*} methodName public method name.
-   * @param {*} params an optional method parameter.
+   * @param {string} objectName Unity scene name.
+   * @param {string} methodName public method name.
+   * @param {any} params an optional method parameter.
    * @returns 
    */
   send(objectName, methodName, params) {
@@ -245,7 +251,7 @@ export default class UnityWebgl extends EventSystem {
     if (this.unityInstance !== null) {
       this.unityInstance.Quit().then(() => {
         this.unityInstance = null
-        this.dispatch('quitted')
+        this.dispatch('destroyed')
       })
     }
   }
