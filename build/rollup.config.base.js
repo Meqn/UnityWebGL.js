@@ -8,7 +8,7 @@ import analyze from 'rollup-plugin-analyzer'
 
 const pkg = require('../package.json')
 
-export const name = 'VueComponent'
+export const name = 'UnityWebgl'
 
 export default {
   input: 'src/index.js',
