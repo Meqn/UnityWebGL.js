@@ -1,6 +1,14 @@
 <script>
 let unityInstanceIdentifier = 0
 
+function cssUnit(val) {
+  const regx = /^\d+(px|em|%|vw|vh|rem)?$/
+  if (regx.test(val)) {
+    return isNaN(val) ? val : val + 'px'
+  }
+  return ''
+}
+
 export default {
   name: 'UnityWebgl',
   props: {
@@ -18,8 +26,8 @@ export default {
     canvasStyle() {
       const { width, height } = this
       return {
-        width: width + (typeof width === 'number' ? 'px' : ''),
-        height: height + (typeof height === 'number' ? 'px' : '')
+        width: cssUnit(width),
+        height: cssUnit(height)
       }
     }
   },

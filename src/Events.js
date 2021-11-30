@@ -83,7 +83,7 @@ class EventSystem {
    * @param  {...any} args event's parameters
    * @returns 
    */
-  dispatch(eventName, ...args) {
+  emit(eventName, ...args) {
     const event = this.eventMap.get(eventName)
     if (event !== undefined) {
       event(...args)

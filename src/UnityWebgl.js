@@ -69,11 +69,11 @@ function generateUnityInstanceParameters(unity) {
   const unityParameters = { ...unity.config }
   
   unityParameters.print = function (message) {
-    unity.dispatch('debug', message)
+    unity.emit('debug', message)
   }
 
   unityParameters.printErr = function (message) {
-    unity.dispatch('error', message)
+    unity.emit('error', message)
   }
 
   return unityParameters
@@ -157,14 +157,14 @@ export default class UnityWebgl extends EventSystem {
             config,
             (val) => ctx._setProgression(val)
           ).then(unity => {
-            ctx.dispatch('created')
+            ctx.emit('created')
             ctx.unityInstance = unity
           }).catch(err => {
-            ctx.dispatch('error', err)
+            ctx.emit('error', err)
             ctx.unityInstance = null
           })
         } catch (err) {
-          ctx.dispatch('error', err)
+          ctx.emit('error', err)
           ctx.unityInstance = null
         }
       },
@@ -180,9 +180,9 @@ export default class UnityWebgl extends EventSystem {
    */
   _setProgression(val) {
     if (val === 1) {
-      this.dispatch('loaded')
+      this.emit('loaded')
     }
-    this.dispatch('progress', val)
+    this.emit('progress', val)
   }
   
   /**
@@ -251,7 +251,7 @@ export default class UnityWebgl extends EventSystem {
     if (this.unityInstance !== null) {
       this.unityInstance.Quit().then(() => {
         this.unityInstance = null
-        this.dispatch('destroyed')
+        this.emit('destroyed')
       })
     }
   }

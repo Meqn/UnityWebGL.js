@@ -1,4 +1,4 @@
-import UnityWebgl from "./UnityWebgl"
+import UnityWebgl from './UnityWebgl.js'
 import VueUnity from './Unity.vue'
 
 const install = function(Vue) {

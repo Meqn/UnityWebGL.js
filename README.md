@@ -134,7 +134,7 @@ events:
 * `once(eventName: string, eventListener: function)`
 * `off(eventName: string)`
 * `clear()`
-* `dispatch(eventName: string)`
+* `emit(eventName: string)`
 
 instance:
 * `create(canvasElement: HTMLCanvasElement | string)`
@@ -176,7 +176,7 @@ Unity.on('showDialog', (data: any) => {
 })
 
 // you also can call function.
-Unity.dispatch('showDialog', data)
+Unity.emit('showDialog', data)
 // or
 window[Unity.global_name].showDialog(data) // 📢 Unity.global_name = __UnityLib__
 
