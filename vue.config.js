@@ -7,6 +7,7 @@ module.exports = {
   outputDir: 'docs/.vuepress/dist/example',
   assetsDir: 'assets',
   indexPath: 'index.html',
+  lintOnSave: false,
   chainWebpack (config) {
     config
       .plugin('html')
