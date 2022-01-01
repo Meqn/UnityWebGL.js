@@ -10,15 +10,20 @@ const isPlayObject = arg => Object.prototype.toString.call(arg) === '[object Obj
  */
 function unityLoader(src, { resolve, reject }) {
   if (!src) {
-    reject && reject(new Error('UnityLoader: src not found.'))
+    reject && reject(new Error('UnityWebgl: loaderUrl not found.'))
     return null
+  }
+
+  if (typeof window.createUnityInstance === 'function') {
+    console.warn('UnityWebgl: Unity Loader already exists')
+    resolve && resolve()
   }
 
   function handler(code) {
     if (code === 'ready') {
       resolve && resolve()
     } else {
-      reject && reject(new Error(`'UnityLoader: ${src}' load failed.`))
+      reject && reject(new Error(`'UnityWebgl: ${src}' loading failure.`))
     }
   }
 
@@ -95,6 +100,12 @@ function queryCanvas(canvas) {
   }
 }
 
+const DefaultConfig = {
+  streamingAssetsUrl: 'StreamingAssets',
+  companyName: 'Unity.com',
+  productName: 'Unity'
+}
+
 export default class UnityWebgl extends EventSystem {
   unityLoader = null
   canvasElement = null
@@ -119,9 +130,9 @@ export default class UnityWebgl extends EventSystem {
     super()
 
     if (isPlayObject(canvas)) {
-      this.config = { ...canvas }
+      this.config = Object.assign({}, DefaultConfig, canvas)
     } else {
-      this.config = { ...options }
+      this.config = Object.assign({}, DefaultConfig, options)
       const _canvas = queryCanvas(canvas)
       if (_canvas) {
         this.create(_canvas)

@@ -1,5 +1,4 @@
-// const UNITY_GLOBAL_NAME = 'UnityWebGL'
-const UNITY_GLOBAL_NAME = '__UnityLib__'
+let UNITY_GLOBAL_NAME = '__UnityLib__'
 
 class EventSystem {
   // event list
@@ -7,14 +6,28 @@ class EventSystem {
   
   constructor() {
     if (window !== undefined) {
-      if (window[UNITY_GLOBAL_NAME] === undefined) {
-        window[UNITY_GLOBAL_NAME] = {}
+      if (window[this.global_name] === undefined) {
+        window[this.global_name] = {}
       }
     }
   }
 
+  // eslint-disable-next-line camelcase
   get global_name() {
     return UNITY_GLOBAL_NAME
+  }
+
+  setGlobalName(name, { allowExist = true, merge = true } = {}) {
+    const oName = UNITY_GLOBAL_NAME
+    UNITY_GLOBAL_NAME = name
+    if (window !== undefined) {
+      if (Object.prototype.toString.call(window[name]) !== '[object Object]') {
+        window[name] = {}
+      }
+      if (window[oName]) {
+        window[name] = { ...window[oName], ...window[name] }
+      }
+    }
   }
   
   /**
@@ -25,8 +38,8 @@ class EventSystem {
    */
   on(eventName, eventListener) {
     this.eventMap.set(eventName, eventListener)
-    if (window[UNITY_GLOBAL_NAME] !== undefined) {
-      window[UNITY_GLOBAL_NAME][eventName] = eventListener
+    if (window[this.global_name] !== undefined) {
+      window[this.global_name][eventName] = eventListener
     }
     return this
   }
@@ -56,8 +69,8 @@ class EventSystem {
   off(eventName) {
     this.eventMap.delete(eventName)
 
-    if (window[UNITY_GLOBAL_NAME] !== undefined) {
-      delete window[UNITY_GLOBAL_NAME][eventName]
+    if (window[this.global_name] !== undefined) {
+      delete window[this.global_name][eventName]
     }
     return this
   }
@@ -67,9 +80,9 @@ class EventSystem {
    * @returns 
    */
   clear() {
-    if (window[UNITY_GLOBAL_NAME] !== undefined) {
+    if (window[this.global_name] !== undefined) {
       this.eventMap.forEach((_v, k) => {
-        delete window[UNITY_GLOBAL_NAME][k]
+        delete window[this.global_name][k]
       })
     }
 
@@ -91,7 +104,5 @@ class EventSystem {
     return this
   }
 }
-
-EventSystem.global_name = UNITY_GLOBAL_NAME
 
 export default EventSystem

@@ -13,6 +13,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 UnityWebgl.install = install
+UnityWebgl.VueUnity = VueUnity
 
 export { VueUnity }
 export default UnityWebgl

@@ -5,7 +5,8 @@
 </template>
 
 <script>
-import UnityWebgl, { VueUnity } from 'unity-webgl'
+// import UnityWebgl, { VueUnity } from 'unity-webgl'
+import UnityWebgl, { VueUnity } from '../dist/UnityWebgl.esm'
 
 const Unity = new UnityWebgl({
   loaderUrl: '/Build/OUT_BIM.loader.js',
