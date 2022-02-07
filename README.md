@@ -82,7 +82,7 @@ in example.html:
 <button onclick="onFullscreen()">Fullscreen</button>
 
 <script>
-var Unity = new UnityWebgl.default('#canvas', {
+var Unity = new UnityWebgl('#canvas', {
   loaderUrl: 'Build/OUT_BIM.loader.js',
   dataUrl: "Build/OUT_BIM.data",
   frameworkUrl: "Build/OUT_BIM.framework.js",
@@ -119,7 +119,7 @@ function onFullscreen() {
 You can also:
 
 ```js
-var Unity = new UnityWebgl.default({
+var Unity = new UnityWebgl({
   loaderUrl: 'Build/OUT_BIM.loader.js',
   dataUrl: "Build/OUT_BIM.data",
   frameworkUrl: "Build/OUT_BIM.framework.js",
@@ -143,7 +143,7 @@ in example.vue
 </template>
 
 <script>
-import UnityWebgl, { VueUnity } from 'unity-webgl'
+import UnityWebgl from 'unity-webgl'
 
 const Unity = new UnityWebgl({
   loaderUrl: 'Build/OUT_BIM.loader.js',
@@ -155,7 +155,7 @@ const Unity = new UnityWebgl({
 export default {
   name: 'Unity',
   component: {
-    Unity: VueUnity
+    Unity: UnityWebgl.vueComponent
   },
   data() {
     return {
@@ -182,7 +182,7 @@ __UnityLib__.showDialog(data)
 ```js
 // # in webApp
 
-const Unity = new UnityWebgl.default()
+const Unity = new UnityWebgl()
 
 // Register functions
 Unity.on('showDialog', (data: any) => {

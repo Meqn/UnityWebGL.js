@@ -1,12 +1,14 @@
 import base, { name } from './rollup.config.base'
+import { terser } from 'rollup-plugin-terser'
 
 const config = Object.assign({}, base, {
   output: {
-    exports: 'named', // 文档：https://www.rollupjs.com/guide/big-list-of-options#exports
     name,
-    file: `dist/${name}.umd.js`,
+    file: `dist/${name}.min.js`,
     format: 'umd',
   },
 })
+
+config.plugins.push(terser())
 
 export default config

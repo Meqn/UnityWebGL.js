@@ -8,8 +8,8 @@
     "vue unity",
     "vue unity webgl"
   ],
-  "version": "1.2.3",
-  "main": "dist/UnityWebgl.umd.js",
+  "version": "2.0.0",
+  "main": "dist/UnityWebgl.min.js",
   "module": "dist/UnityWebgl.esm.js",
   "unpkg": "dist/UnityWebgl.min.js",
   "jsdelivr": "dist/UnityWebgl.min.js",
@@ -28,8 +28,7 @@
   },
   "scripts": {
     "dev": "vue-cli-service serve ./example/main.js",
-    "build": "NODE_ENV=production npm run build:browser && npm run build:es && npm run build:umd",
-    "build:browser": "rollup --config build/rollup.config.browser.js",
+    "build": "NODE_ENV=production npm run build:es && npm run build:umd",
     "build:es": "rollup --config build/rollup.config.es.js",
     "build:umd": "rollup --config build/rollup.config.umd.js",
     "demo:build": "vue-cli-service build --mode production ./example/main.js",
