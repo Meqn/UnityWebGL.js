@@ -6,7 +6,7 @@ UnityWebgl.js 提供了一种简单的解决方案，用于在 webApp 或 Vue.js
 
 based on [react-unity-webgl](https://github.com/jeffreylanters/react-unity-webgl)
 
-## features
+## Features
 - 💊 Simple and flexible to use
 - 📮 two-way communication (webApp, Unity)
 - 🛠 Built-in event handler
@@ -168,22 +168,21 @@ export default {
 
 ## Communication
 
-1. In Unity call js functions.  
-    在Unity中调用js方法。
+* [**WebGL: Interacting with browser scripting**@Unity3d.Docs](https://docs.unity3d.com/Manual/webgl-interactingwithbrowserscripting.html)
+* [**WebGL：与浏览器脚本交互**@Unity3d官方文档](https://docs.unity3d.com/cn/2020.3/Manual/webgl-interactingwithbrowserscripting.html)
 
-```js
-// # in Unity
-// Call the `showDialog` method in unity.
-__UnityLib__.showDialog(data)
+### 1. Calling JavaScript functions from Unity scripts
 
-// 📢 `__UnityLib__` is a global function collection.
-```
+**从 Unity 脚本调用 JavaScript 函数**
+
+1. First, you should register a `showDialog` method, which be bind to the `__UnityLib__` global object by default.
+
+   先在前端项目中通过 `Unity.on()` 注册 `showDialog` 方法，该方法会默认绑定在全局对象`__UnityLib__`上。
 
 ```js
 // # in webApp
 
 const Unity = new UnityWebgl()
-
 // Register functions
 Unity.on('showDialog', (data: any) => {
   console.log(data)
@@ -194,15 +193,58 @@ Unity.on('showDialog', (data: any) => {
 Unity.emit('showDialog', data)
 // or
 window[Unity.global_name].showDialog(data) // 📢 Unity.global_name = __UnityLib__
-
 ```
 
+2. In the Unity project, add the registered `showDialog` method to the project, and then call those functions directly from your script code. To do so, place files with JavaScript code using the `.jslib` extension under a “Plugins” subfolder in your Assets folder. The plugin file needs to have a syntax like this:
 
-
-2.  JS call Unity public methods.  
-    在web页面内调用 Unity public方法。
+   在Unity项目中，将注册的`showDialog`方法添加到项目中。注意📢 ：请使用 `.jslib` 扩展名将包含 JavaScript 代码的文件放置在 Assets 文件夹中的“Plugins”子文件夹下。插件文件需要有如下所示的语法：
 
 ```js
+// javascript_extend.jslib
+
+mergeInto(LibraryManager.library, {
+  // this is you code
+  showDialog: function (str) {
+    var data = Pointer_stringify(str);
+    // '__UnityLib__' is a global function collection.
+    __UnityLib__.showDialog(data);
+  },
+  
+  Hello: function () {
+    window.alert("Hello, world!");
+  }
+});
+```
+
+Then you can call these functions from your C# scripts like this:
+
+```c#
+using UnityEngine;
+using System.Runtime.InteropServices;
+
+public class NewBehaviourScript : MonoBehaviour {
+
+    [DllImport("__Internal")]
+    private static extern void Hello();
+
+    [DllImport("__Internal")]
+    private static extern void showDialog(string str);
+
+    void Start() {
+        Hello();
+        
+        showDialog("This is a string.");
+    }
+}
+```
+
+### 2. Calling Unity scripts functions from JavaScript
+
+使用 JavaScript 调用 Unity 脚本函数
+
+```js
+const Unity = new UnityWebgl()
+
 /**
  * Sends a message to the UnityInstance to invoke a public method.
  * @param {string} objectName Unity scene name.
@@ -220,5 +262,4 @@ Unity.send('mainScene', 'init', {
   height: 120
 })
 ```
-
 
