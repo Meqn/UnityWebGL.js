@@ -9,10 +9,10 @@
 import UnityWebgl from '../dist/UnityWebgl.esm'
 
 const Unity = new UnityWebgl({
-  loaderUrl: '/Build/OUT_BIM.loader.js',
-  dataUrl: "/Build/OUT_BIM.data",
-  frameworkUrl: "/Build/OUT_BIM.framework.js",
-  codeUrl: "/Build/OUT_BIM.wasm",
+  loaderUrl: 'https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.loader.js',
+  dataUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.data",
+  frameworkUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.framework.js",
+  codeUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.wasm",
   streamingAssetsUrl: "StreamingAssets",
   companyName: "DefaultCompany",
   productName: "BIM",

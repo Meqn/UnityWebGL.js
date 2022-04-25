@@ -2,15 +2,15 @@
 
 Unity WebGL provides an easy solution for embedding Unity WebGL builds in your webApp or `Vue.js` project, with two-way communication between your webApp and Unity application with advanced API's.   
 
-UnityWebgl.js 提供了一种简单的解决方案，用于在 webApp 或 Vue.js 项目中嵌入 Unity WebGL，并通过API在 webApp 和 Unity 之间进行双向通信。
+UnityWebgl.js 提供了一种简单的解决方案，用于在 webApp 或 Vue.js （支持`Vue2.x` & `Vue3.x`） 项目中嵌入 Unity WebGL，并通过API在 webApp 和 Unity 之间进行双向通信。
 
 based on [react-unity-webgl](https://github.com/jeffreylanters/react-unity-webgl)
 
 ## Features
 - 💊 Simple and flexible to use
-- 📮 two-way communication (webApp, Unity)
+- 📮 two-way communication (`webApp`, `Unity`)
 - 🛠 Built-in event handler
-- 🧬 Available for `Vue.js`
+- 🧬 Available for `Vue.js` (`vue@2.x` & `vue@3.x`)
 
 ## API
 
@@ -83,10 +83,10 @@ in example.html:
 
 <script>
 var Unity = new UnityWebgl('#canvas', {
-  loaderUrl: 'Build/OUT_BIM.loader.js',
-  dataUrl: "Build/OUT_BIM.data",
-  frameworkUrl: "Build/OUT_BIM.framework.js",
-  codeUrl: "Build/OUT_BIM.wasm"
+  loaderUrl: '/Build/unity.loader.js',
+  dataUrl: "/Build/unity.data",
+  frameworkUrl: "/Build/unity.framework.js",
+  codeUrl: "/Build/unity.wasm"
 })
 
 Unity
@@ -120,10 +120,10 @@ You can also:
 
 ```js
 var Unity = new UnityWebgl({
-  loaderUrl: 'Build/OUT_BIM.loader.js',
-  dataUrl: "Build/OUT_BIM.data",
-  frameworkUrl: "Build/OUT_BIM.framework.js",
-  codeUrl: "Build/OUT_BIM.wasm",
+  loaderUrl: '/Build/unity.loader.js',
+  dataUrl: "/Build/unity.data",
+  frameworkUrl: "/Build/unity.framework.js",
+  codeUrl: "/Build/unity.wasm",
   streamingAssetsUrl: "StreamingAssets",
   companyName: "DefaultCompany",
   productName: "Unity",
@@ -146,15 +146,15 @@ in example.vue
 import UnityWebgl from 'unity-webgl'
 
 const Unity = new UnityWebgl({
-  loaderUrl: 'Build/OUT_BIM.loader.js',
-  dataUrl: "Build/OUT_BIM.data",
-  frameworkUrl: "Build/OUT_BIM.framework.js",
-  codeUrl: "Build/OUT_BIM.wasm"
+  loaderUrl: '/Build/unity.loader.js',
+  dataUrl: "/Build/unity.data",
+  frameworkUrl: "/Build/unity.framework.js",
+  codeUrl: "/Build/unity.wasm"
 })
 
 export default {
   name: 'Unity',
-  component: {
+  components: {
     Unity: UnityWebgl.vueComponent
   },
   data() {
