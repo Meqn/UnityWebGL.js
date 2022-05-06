@@ -10,7 +10,7 @@ based on [react-unity-webgl](https://github.com/jeffreylanters/react-unity-webgl
 - 💊 Simple and flexible to use
 - 📮 two-way communication (`webApp`, `Unity`)
 - 🛠 Built-in event handler
-- 🧬 Available for `Vue.js` (`vue@2.x` & `vue@3.x`)
+- 🧬 Available for `Vue.js` ([Vue@2.x](https://jake.stackblitz.com/edit/unity-webgl-vue2-demo?file=src%2FApp.vue) & [Vue@3.x](https://stackblitz.com/edit/unity-webgl-vue3-demo?file=src/App.vue))
 
 ## API
 
@@ -135,6 +135,9 @@ Unity.create(document.querySelector('#canvas'))
 
 ### Vue
 
+* [Vue@2.x example](https://jake.stackblitz.com/edit/unity-webgl-vue2-demo?file=src%2FApp.vue)
+* [Vue@3.x example](https://stackblitz.com/edit/unity-webgl-vue3-demo?file=src/App.vue)
+
 in example.vue
 
 ```html
@@ -184,7 +187,7 @@ export default {
 
 const Unity = new UnityWebgl()
 // Register functions
-Unity.on('showDialog', (data: any) => {
+Unity.on('showDialog', (data) => {
   console.log(data)
   $('#dialog').show()
 })
