@@ -8,7 +8,7 @@
     "vue unity",
     "vue unity webgl"
   ],
-  "version": "2.0.2",
+  "version": "2.0.5",
   "main": "dist/UnityWebgl.min.js",
   "module": "dist/UnityWebgl.esm.js",
   "unpkg": "dist/UnityWebgl.min.js",
@@ -37,8 +37,10 @@
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
+  "dependencies": {
+    "@babel/runtime": "~7.16.0"
+  },
   "devDependencies": {
-    "@babel/runtime": "^7.16.0",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.0.6",

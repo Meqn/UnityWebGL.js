@@ -1,6 +1,6 @@
 import EventSystem from './Events.js'
 
-const isPlayObject = arg => Object.prototype.toString.call(arg) === '[object Object]'
+const isPlainObject = arg => Object.prototype.toString.call(arg) === '[object Object]'
 
 /**
  * The unity loader
@@ -129,7 +129,7 @@ export default class UnityWebgl extends EventSystem {
   constructor(canvas, options = {}) {
     super()
 
-    if (isPlayObject(canvas)) {
+    if (isPlainObject(canvas)) {
       this.config = Object.assign({}, DefaultConfig, canvas)
     } else {
       this.config = Object.assign({}, DefaultConfig, options)

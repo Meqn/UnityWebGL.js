@@ -35,10 +35,10 @@ export default {
     const htmlCanvasElement = this.$refs.canvas
     const { unity } = this
     if (htmlCanvasElement) {
-      unity?.create(htmlCanvasElement)
+      unity.create(htmlCanvasElement)
     }
     this.$once('hook:beforeDestroy', () => {
-      unity?.destroy()
+      unity.destroy()
     })
   },
   render(h) {
