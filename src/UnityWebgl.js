@@ -168,15 +168,18 @@ export default class UnityWebgl extends EventSystem {
             config,
             (val) => ctx._setProgression(val)
           ).then(unity => {
-            ctx.emit('created')
-            ctx.unityInstance = unity
+            ctx.unityInstance = unity 
+            ctx.emit('created',unityInstance)
+            
           }).catch(err => {
-            ctx.emit('error', err)
             ctx.unityInstance = null
+            ctx.emit('error', err)
+            
           })
         } catch (err) {
-          ctx.emit('error', err)
           ctx.unityInstance = null
+          ctx.emit('error', err)
+          
         }
       },
       reject(err) {
