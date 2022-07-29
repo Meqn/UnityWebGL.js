@@ -8,7 +8,7 @@
     "vue unity",
     "vue unity webgl"
   ],
-  "version": "2.0.5",
+  "version": "2.0.6",
   "main": "dist/UnityWebgl.min.js",
   "module": "dist/UnityWebgl.esm.js",
   "unpkg": "dist/UnityWebgl.min.js",

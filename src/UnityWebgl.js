@@ -15,7 +15,7 @@ function unityLoader(src, { resolve, reject }) {
   }
 
   if (typeof window.createUnityInstance === 'function') {
-    console.warn('UnityWebgl: Unity Loader already exists')
+    // console.warn('UnityWebgl: Unity Loader already exists')
     resolve && resolve()
   }
 
@@ -169,17 +169,14 @@ export default class UnityWebgl extends EventSystem {
             (val) => ctx._setProgression(val)
           ).then(unity => {
             ctx.unityInstance = unity 
-            ctx.emit('created',unityInstance)
-            
+            ctx.emit('created', unity)
           }).catch(err => {
             ctx.unityInstance = null
             ctx.emit('error', err)
-            
           })
         } catch (err) {
           ctx.unityInstance = null
           ctx.emit('error', err)
-          
         }
       },
       reject(err) {
