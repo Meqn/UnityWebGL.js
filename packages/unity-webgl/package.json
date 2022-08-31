@@ -1,0 +1,36 @@
+{
+  "name": "unity-webgl",
+  "description": "An easy solution for embedding Unity WebGL builds in your webApp",
+  "keywords": [
+    "unity",
+    "webGL",
+    "unity webGl",
+    "vue unity",
+    "vue unity webgl"
+  ],
+  "version": "3.0.0",
+  "main": "dist/UnityWebgl.min.js",
+  "module": "dist/UnityWebgl.esm.js",
+  "unpkg": "dist/UnityWebgl.min.js",
+  "jsdelivr": "dist/UnityWebgl.min.js",
+  "typings": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/Meqn/UnityWebGL.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Meqn/UnityWebGL.js.git"
+  },
+  "author": "Mervin <mengqing723@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Meqn/UnityWebGL.js/issues"
+  },
+  "scripts": {
+    "dev": "NODE_ENV=development rollup -c rollup.config.js -w",
+    "build": "rimraf -rf ./dist && NODE_ENV=production rollup -c rollup.config.js",
+    "test:unit": "vue-cli-service test:unit",
+    "lint": "vue-cli-service lint"
+  }
+}

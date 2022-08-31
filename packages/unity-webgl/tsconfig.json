@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "es5",
+    "declaration": true, // 生成定义文件
+    "declarationMap": false, // 生成定义sourceMap
+    "declarationDir": "dist/types", // 定义文件输出目录
+  },
+  "include": [
+    "src/*"
+  ],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}
