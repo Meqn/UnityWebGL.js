@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telphone=no">
+<title>Unity demo</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<style>
+html,body{ width: 100%; height: 100%; }
+</style>
+</head>
+<body>
+  <canvas id="canvas" style="width: 100%; height: 100%"></canvas>
+
+<script src="../../packages/lib/dist/UnityWebgl.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var Unity = new UnityWebgl('#canvas', {
+    loaderUrl: 'https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.loader.js',
+    dataUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.data",
+    frameworkUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.framework.js",
+    codeUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.wasm",
+    streamingAssetsUrl: "StreamingAssets",
+    companyName: "DefaultCompany",
+    productName: "BIM",
+    productVersion: "0.1",
+  })
+
+  Unity
+    .on('progress', percent => console.log('Unity progress: ', percent))
+    .on('loaded', percent => console.log('Unity loaded: success'))
+    .on('created', percent => console.log('Unity created: success'))
+
+})
+</script>
+</body>
+</html>

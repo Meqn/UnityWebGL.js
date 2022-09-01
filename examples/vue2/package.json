@@ -1,0 +1,26 @@
+{
+  "name": "vue2",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "core-js": "3.6.5",
+    "unity-webgl": "workspace:^3.0.0",
+    "vue": "2.6.11",
+    "vue-demi": "^0.13.11",
+    "@vue/composition-api": "^1.7.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "4.5.0",
+    "@vue/cli-service": "4.5.0",
+    "vue-template-compiler": "2.6.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
