@@ -9,12 +9,13 @@ function cssUnit(val: string | number): string {
     return val + 'px'
   } else {
     return regx.test(val)
-      ? Number.isNaN(val) ? val : val + 'px'
+      ? isNaN(parseFloat(val)) ? val : val + 'px'
       : '100%'
   }
 }
 
 export default defineComponent({
+  name: 'UnityWebglComponent',
   props: {
     unity: {
       type: Object as PropType<UnityWebgl>
@@ -32,6 +33,7 @@ export default defineComponent({
     canvasStyle() {
       const { width, height } = this
       return {
+        border: '1px solid #f00',
         width: cssUnit(width),
         height: cssUnit(height)
       }
