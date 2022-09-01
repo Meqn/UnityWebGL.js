@@ -25,3 +25,5 @@ declare global {
     createUnityInstance: typeof createUnityInstance;
   }
 }
+
+export {}

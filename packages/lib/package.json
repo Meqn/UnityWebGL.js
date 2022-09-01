@@ -13,7 +13,7 @@
   "module": "dist/UnityWebgl.esm.js",
   "unpkg": "dist/UnityWebgl.min.js",
   "jsdelivr": "dist/UnityWebgl.min.js",
-  "typings": "dist/types/index.d.ts",
+  "typings": "dist/index.d.ts",
   "files": [
     "dist"
   ],
