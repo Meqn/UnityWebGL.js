@@ -15,7 +15,7 @@ export default class EventBus {
   
   setGlobalName(name: string) {
     if (window[name]) {
-      console.error(`UnityWebgl: ${window[name]} already exists.`)
+      console.error(`UnityWebgl: window.${name} already exists.`)
     } else {
       const oName = UNITY_GLOBAL_NAME
       window[name] = window[UNITY_GLOBAL_NAME]
