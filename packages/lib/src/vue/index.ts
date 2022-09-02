@@ -33,7 +33,6 @@ export default defineComponent({
     canvasStyle() {
       const { width, height } = this
       return {
-        border: '1px solid #f00',
         width: cssUnit(width),
         height: cssUnit(height)
       }
