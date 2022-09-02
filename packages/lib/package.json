@@ -1,6 +1,7 @@
 {
   "name": "unity-webgl",
-  "description": "An easy solution for embedding Unity WebGL builds in your webApp",
+  "version": "3.0.0-beta.4",
+  "description": "An easy solution for embedding Unity WebGL builds in your Vue.js or Web Application.",
   "keywords": [
     "unity",
     "webGL",
@@ -8,14 +9,14 @@
     "vue unity",
     "vue unity webgl"
   ],
-  "version": "3.0.0",
   "main": "dist/UnityWebgl.min.js",
   "module": "dist/UnityWebgl.esm.js",
   "unpkg": "dist/UnityWebgl.min.js",
   "jsdelivr": "dist/UnityWebgl.min.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "vue"
   ],
   "exports": {
     ".": {
@@ -37,18 +38,17 @@
   "scripts": {
     "dev": "NODE_ENV=development rollup -c rollup.config.js -w",
     "build": "rimraf -rf ./dist && NODE_ENV=production rollup -c rollup.config.js",
-    "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "release": "rimraf -rf ./vue && npm run build && node ./scripts/release.js"
   },
   "devDependencies": {
     "vue": "^3.2.38"
   },
   "dependencies": {
-    "vue-demi": "^0.13.11"
+    "vue-demi": "latest"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.7.0",
-    "vue": "^2.0.0 || >=3.0.0"
+    "vue": "^2.5.0 || >=3.0.0"
   },
   "peerDependenciesMeta": {
     "@vue/composition-api": {
