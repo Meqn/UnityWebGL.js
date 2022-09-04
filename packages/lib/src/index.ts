@@ -115,7 +115,7 @@ export default class UnityWebgl extends EventBus {
    * @param {any} params an optional method parameter.
    * @returns 
    */
-   send(objectName: string, methodName: string, params?: string | number | boolean) {
+   send(objectName: string, methodName: string, params?: any) {
     if (this.unityInstance !== null) {
       if (params === undefined || params === null) {
         this.unityInstance.SendMessage(objectName, methodName)
