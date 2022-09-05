@@ -13,11 +13,20 @@ based on [react-unity-webgl](https://github.com/jeffreylanters/react-unity-webgl
 - 🧬 Available for `Vue.js` ([Vue@2.x](https://stackblitz.com/edit/unity-webgl-vue2-demo?file=src%2FApp.vue) & [Vue@3.x](https://stackblitz.com/edit/unity-webgl-vue3-demo?file=src%2FApp.vue))
 
 ## Install
+
+### npm & ESM
+
 ```bash
 npm install unity-webgl
 ```
 
-browser
+To make `unity-webgl/vue` work for Vue 2 (`<2.7.0`), you need to have `@vue/composition-api` installed:
+
+```bash
+npm i -D @vue/composition-api
+```
+
+### browser
 ```
 https://cdn.jsdelivr.net/npm/unity-webgl/dist/UnityWebgl.min.js
 ```
