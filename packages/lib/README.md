@@ -10,7 +10,7 @@ based on [react-unity-webgl](https://github.com/jeffreylanters/react-unity-webgl
 - 💊 Simple and flexible to use
 - 📮 two-way communication (`webApp`, `Unity`)
 - 🛠 Built-in event handler
-- 🧬 Available for `Vue.js` ([Vue@2.x](https://jake.stackblitz.com/edit/unity-webgl-vue2-demo?file=src%2FApp.vue) & [Vue@3.x](https://stackblitz.com/edit/unity-webgl-vue3-demo?file=src/App.vue))
+- 🧬 Available for `Vue.js` ([Vue@2.x](https://stackblitz.com/edit/unity-webgl-vue2-demo?file=src%2FApp.vue) & [Vue@3.x](https://stackblitz.com/edit/unity-webgl-vue3-demo?file=src%2FApp.vue))
 
 ## Install
 ```bash
@@ -24,7 +24,8 @@ https://cdn.jsdelivr.net/npm/unity-webgl/dist/UnityWebgl.min.js
 
 ## Usage
 
-in example.html:
+<details>
+<summary>in example.html</summary>
 
 ```html
 <canvas id="canvas" style="width: 100%; height: 100%"></canvas>
@@ -84,42 +85,74 @@ var Unity = new UnityWebgl({
 
 Unity.create(document.querySelector('#canvas'))
 ```
+</details>
 
 ### Vue
 
-* [Vue@2.x example](https://jake.stackblitz.com/edit/unity-webgl-vue2-demo?file=src%2FApp.vue)
+* [Vue@2.x example](https://stackblitz.com/edit/unity-webgl-vue2-demo?file=src%2FApp.vue)
 * [Vue@3.x example](https://stackblitz.com/edit/unity-webgl-vue3-demo?file=src/App.vue)
 
-in example.vue
+<details>
+<summary>Vue 2.x</summary>
 
 ```html
 <template>
-  <Unity :unity="unityContext" width="800px" height="600px" />
+  <VueUnity :unity="unityContext" width="800" heighht="600" />
 </template>
 
 <script>
-import UnityWebgl from 'unity-webgl'
+  import UnityWebgl from 'unity-webgl'
+  import VueUnity from 'Unity-webgl/vue'
 
-const Unity = new UnityWebgl({
-  loaderUrl: '/Build/unity.loader.js',
-  dataUrl: "/Build/unity.data",
-  frameworkUrl: "/Build/unity.framework.js",
-  codeUrl: "/Build/unity.wasm"
-})
+  const Unity = new UnityWebgl({
+    loaderUrl: '/Build/OUT_BIM.loader.js',
+    dataUrl: "/Build/OUT_BIM.data",
+    frameworkUrl: "/Build/OUT_BIM.framework.js",
+    codeUrl: "/Build/OUT_BIM.wasm",
+  })
 
-export default {
-  name: 'Unity',
-  components: {
-    Unity: UnityWebgl.vueComponent
-  },
-  data() {
-    return {
-      unityContext: Unity
+  Unity.on('device', () => alert('click device ...'))
+
+  export default {
+    components: {
+      VueUnity
+    },
+    data() {
+      return {
+        unityContext: Unity
+      }
     }
   }
-}
 </script>
 ```
+</details>
+
+
+<details>
+<summary>Vue 3.x</summary>
+
+```html
+<script setup lang="ts">
+import UnityWebgl from 'Unity-webgl';
+import VueUnity from 'Unity-webgl/vue'
+
+const Unity = new UnityWebgl({
+  loaderUrl: '/Build/OUT_BIM.loader.js',
+  dataUrl: "/Build/OUT_BIM.data",
+  frameworkUrl: "/Build/OUT_BIM.framework.js",
+  codeUrl: "/Build/OUT_BIM.wasm",
+})
+
+Unity.on('device', () => alert('click device ...'))
+</script>
+
+<template>
+  <VueUnity :unity="Unity" width="800" heighht="600" />
+</template>
+```
+</details>
+
+
 
 ## API
 
@@ -164,7 +197,7 @@ unityContext = new UnityWebgl(canvasElement: HTMLCanvasElement | string, options
 ---
 
 * `on(eventName: string, eventListener: Function)`  
-	Use `instance.on()` to register a method for Unity-scirpt call.
+	Use `instance.on()` to register a method for Unity-script call.
 * `once(eventName: string, eventListener: Function)`  
 * `off(eventName: string)`  
 * `clear()`  
@@ -173,27 +206,23 @@ unityContext = new UnityWebgl(canvasElement: HTMLCanvasElement | string, options
 
 ### Events
 
-- `progress`  
+* `progress`  
 	loading progress.
-	
 	```js
 	unityContext.on('progress', (number) => {})
 	```
-- `loaded`  
+* `loaded`  
 	loading completed.
-	
 	```js
 	unityContext.on('loaded', () => {})
 	```
-- `created`  
+* `created`  
 	Unity Instance is created.
-	
 	```js
 	unityContext.on('created', () => {})
 	```
-- `destroyed`  
+* `destroyed`  
 	Quits the Unity Instance and clears it from memory.
-	
 	```js
 	unityContext.on('destroyed', () => {})
 	```
@@ -203,8 +232,8 @@ unityContext = new UnityWebgl(canvasElement: HTMLCanvasElement | string, options
 **props**
 
 * `unity: UnityWebgl`
-* `width?: string|number ` , default: `100%`
-* `height?: string|number ` , default: `100%`
+* `width?: string|number` , default: `100%`
+* `height?: string|number` , default: `100%`
 
 
 
