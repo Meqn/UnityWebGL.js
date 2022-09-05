@@ -1,6 +1,6 @@
 {
   "name": "unity-webgl",
-  "version": "3.0.0-beta.4",
+  "version": "3.0.0",
   "description": "An easy solution for embedding Unity WebGL builds in your Vue.js or Web Application.",
   "keywords": [
     "unity",
@@ -36,9 +36,10 @@
     "url": "https://github.com/Meqn/UnityWebGL.js/issues"
   },
   "scripts": {
+    "clean": "rimraf -rf ./dist && rimraf -rf ./vue",
     "dev": "NODE_ENV=development rollup -c rollup.config.js -w",
-    "build": "rimraf -rf ./dist && NODE_ENV=production rollup -c rollup.config.js",
-    "release": "rimraf -rf ./vue && npm run build && node ./scripts/release.js"
+    "build": "npm run clean && NODE_ENV=production rollup -c rollup.config.js",
+    "release": "npm run build && node ./scripts/release.js"
   },
   "devDependencies": {
     "vue": "^3.2.38"
