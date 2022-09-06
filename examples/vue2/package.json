@@ -7,11 +7,11 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@vue/composition-api": "^1.7.0",
     "core-js": "3.6.5",
-    "unity-webgl": "workspace:^3.0.0",
+    "unity-webgl": "workspace:*",
     "vue": "2.6.11",
-    "vue-demi": "^0.13.11",
-    "@vue/composition-api": "^1.7.0"
+    "vue-demi": "^0.13.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "4.5.0",

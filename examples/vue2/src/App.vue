@@ -15,7 +15,7 @@
     codeUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.wasm",
   })
 
-  Unity.on('device', () => console.log('click device ...'))
+  Unity.on('device', () => alert('click device ...'))
 
   export default {
     name: 'App',

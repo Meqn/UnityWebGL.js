@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "unity-webgl": "workspace:^3.0.0",
+    "unity-webgl": "workspace:*",
     "vue": "^3.2.37",
     "vue-demi": "^0.13.11"
   },

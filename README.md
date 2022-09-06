@@ -27,8 +27,11 @@ npm i -D @vue/composition-api
 ```
 
 ### browser
-```
+```bash
 https://cdn.jsdelivr.net/npm/unity-webgl/dist/UnityWebgl.min.js
+
+# vue component
+https://cdn.jsdelivr.net/npm/unity-webgl/dist/VueUnity.min.js
 ```
 
 ## Usage

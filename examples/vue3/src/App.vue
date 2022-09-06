@@ -9,11 +9,9 @@ const Unity = new UnityWebgl({
   codeUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.wasm",
 })
 
-Unity.on('device', () => console.log('click device ...'))
+Unity.on('device', () => alert('click device ...'))
 </script>
 
 <template>
-<div style="width: 600px; height: 500px">
-  <VueUnity :unity="Unity"></VueUnity>
-</div>
+<VueUnity :unity="Unity" width="800" height="600"></VueUnity>
 </template>
