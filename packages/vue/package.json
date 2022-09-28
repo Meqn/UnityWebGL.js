@@ -1,0 +1,29 @@
+{
+  "name": "unity-webgl/vue",
+  "private": true,
+  "main": "./index.js",
+  "unpkg": "./index.umd.js",
+  "jsdelivr": "./index.umd.js",
+  "types": "./index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf -rf ./dist && NODE_ENV=production rollup -c rollup.config.js"
+  },
+  "devDependencies": {
+    "@vue/composition-api": "^1.7.0",
+    "vue": "^3.2.38"
+  },
+  "dependencies": {
+    "vue-demi": "latest",
+    "unity-webgl": "workspace:*"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.7.0",
+    "vue": "^2.5.0 || >=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
+  }
+}
