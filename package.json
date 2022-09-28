@@ -1,6 +1,5 @@
 {
   "private": true,
-  "version": "3.0.0",
   "description": "An easy solution for embedding Unity WebGL builds in your webApp",
   "keywords": [
     "unity",
@@ -9,7 +8,10 @@
   ],
   "scripts": {
     "preinstall": "node scripts/preinstall",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:lib": "pnpm --filter unity-webgl build",
+    "build:vue": "pnpm --filter unity-webgl/vue build",
+    "build": "pnpm run build:lib && pnpm run build:vue && node ./scripts/release.js"
   },
   "gitHooks": {
     "pre-commit": "lint-staged",
@@ -31,6 +33,7 @@
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@types/node": "^18.7.14",
     "chalk": "^4.1.2",
+    "diy-log": "^2.4.0",
     "fs-extra": "^10.1.0",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
