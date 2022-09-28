@@ -46,7 +46,7 @@ function generateLib(outputs) {
         commonjs(),
         typescript({
           useTsconfigDeclarationDir: true,
-          cacheRoot: path.resolve(__dirname, 'node_modules/.rts2_cache'),
+          cacheRoot: path.resolve(__dirname, 'node_modules/.rts2_cache')
         })
       ]
     })
@@ -59,33 +59,8 @@ function generateLib(outputs) {
   })
 }
 
-// build vue component
-function generateVue() {
-  return defineConfig({
-    plugins: [typescript()],
-    external: ['vue-demi'],
-    input: 'src/vue/index.ts',
-    output: [
-      {
-        format: 'esm',
-        file: 'dist/VueUnity.esm.js'
-      },
-      {
-        name: 'VueUnity',
-        format: 'umd',
-        file: 'dist/VueUnity.min.js',
-        globals: {
-          vue: "Vue",
-          'vue-demi': 'VueDemi'
-        },
-      }
-    ]
-  })
-}
-
 export default [
   ...generateLib(outputs),
-  generateVue(),
   {
     input: 'src/index.ts',
     plugins: [dts()],

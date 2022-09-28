@@ -1,6 +1,6 @@
 {
   "name": "unity-webgl",
-  "version": "3.0.1",
+  "version": "3.1.1",
   "description": "An easy solution for embedding Unity WebGL builds in your Vue.js or Web Application.",
   "keywords": [
     "unity",
@@ -9,21 +9,27 @@
     "vue unity",
     "vue unity webgl"
   ],
-  "main": "dist/UnityWebgl.min.js",
-  "module": "dist/UnityWebgl.esm.js",
-  "unpkg": "dist/UnityWebgl.min.js",
-  "jsdelivr": "dist/UnityWebgl.min.js",
-  "typings": "dist/index.d.ts",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.esm.js",
+  "unpkg": "dist/index.umd.js",
+  "jsdelivr": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist",
+    "types",
     "vue"
   ],
   "exports": {
     ".": {
-      "import": "./dist/UnityWebgl.esm.js",
-      "require": "./dist/UnityWebgl.min.js"
+      "import": "./dist/index.esm.js",
+      "default": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
     },
-    "./vue": "./dist/VueUnity.esm.js"
+    "./vue": {
+      "import": "./vue/index.js",
+      "default": "./vue/index.js",
+      "types": "./vue/index.d.ts"
+    }
   },
   "homepage": "https://github.com/Meqn/UnityWebGL.js",
   "repository": {
@@ -38,8 +44,7 @@
   "scripts": {
     "clean": "rimraf -rf ./dist && rimraf -rf ./vue",
     "dev": "NODE_ENV=development rollup -c rollup.config.js -w",
-    "build": "npm run clean && NODE_ENV=production rollup -c rollup.config.js",
-    "release": "npm run build && node ./scripts/release.js"
+    "build": "npm run clean && NODE_ENV=production rollup -c rollup.config.js"
   },
   "devDependencies": {
     "@vue/composition-api": "^1.7.0",
