@@ -1,6 +1,6 @@
 {
   "name": "unity-webgl",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "An easy solution for embedding Unity WebGL builds in your Vue.js or Web Application.",
   "keywords": [
     "unity",
