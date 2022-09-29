@@ -1,5 +1,5 @@
 import { defineComponent, PropType, h, isVue2 } from 'vue-demi'
-import UnityWebgl from 'unity-webgl'
+import type UnityWebgl from 'unity-webgl'
 
 let unityInstanceIdentifier: number = 0
 
@@ -8,7 +8,11 @@ function cssUnit(val: string | number): string {
   if (typeof val === 'number') {
     return val + 'px'
   } else {
-    return regx.test(val) ? (isNaN(parseFloat(val)) ? val : val + 'px') : '100%'
+    return regx.test(val)
+      ? isNaN(val as unknown as number)
+        ? val
+        : val + 'px'
+      : '100%'
   }
 }
 
