@@ -28,10 +28,10 @@ npm i -D @vue/composition-api
 
 ### browser
 ```bash
-https://cdn.jsdelivr.net/npm/unity-webgl/dist/UnityWebgl.min.js
+https://cdn.jsdelivr.net/npm/unity-webgl/dist/UnityWebgl.umd.js
 
 # vue component
-https://cdn.jsdelivr.net/npm/unity-webgl/dist/VueUnity.min.js
+https://cdn.jsdelivr.net/npm/unity-webgl/dist/VueUnity.umd.js
 ```
 
 ## Usage
@@ -169,7 +169,10 @@ Unity.on('device', () => alert('click device ...'))
 ## API
 
 ```js
-unityContext = new UnityWebgl(canvasElement: HTMLCanvasElement | string, options: IUnityConfig)
+unityContext = new UnityWebgl(
+  canvasElement: HTMLCanvasElement | string,
+  options: IUnityConfig
+)
 ```
 
 ### Options
