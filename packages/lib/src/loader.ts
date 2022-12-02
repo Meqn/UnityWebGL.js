@@ -1,7 +1,7 @@
 type ScriptLoadedStatus = 'load' | 'ready' | 'error' | null
 
 interface IUnityLoaderCallbackObj {
-  resolve: () => void,
+  resolve: () => void
   reject: (error?: Error) => void
 }
 
@@ -11,9 +11,12 @@ interface IUnityLoaderCallbackObj {
  * @param {object} callbackObj callbackObj
  * @param {Function} callbackObj.resolve resolve
  * @param {Function} callbackObj.reject reject
- * @returns 
+ * @returns
  */
-export default function unityLoader(src: string, {resolve, reject}: IUnityLoaderCallbackObj): (() => void) | void {
+export default function unityLoader(
+  src: string,
+  { resolve, reject }: IUnityLoaderCallbackObj
+): (() => void) | void {
   if (!src) {
     reject && reject(new Error('UnityWebgl: loaderUrl not found.'))
     return void 0
@@ -22,6 +25,7 @@ export default function unityLoader(src: string, {resolve, reject}: IUnityLoader
   if (typeof (window as any).createUnityInstance === 'function') {
     // console.warn('UnityWebgl: Unity Loader already exists')
     resolve && resolve()
+    return void 0
   }
 
   function handler(code: ScriptLoadedStatus) {
@@ -32,7 +36,9 @@ export default function unityLoader(src: string, {resolve, reject}: IUnityLoader
     }
   }
 
-  let script: HTMLScriptElement | null = document.querySelector(`script[src="${src}"]`)
+  let script: HTMLScriptElement | null = document.querySelector(
+    `script[src="${src}"]`
+  )
   if (script === null) {
     script = document.createElement('script')
     script.src = src
@@ -41,7 +47,7 @@ export default function unityLoader(src: string, {resolve, reject}: IUnityLoader
 
     document.body.appendChild(script)
 
-    const setAttributeFromEvent = function(event: Event) {
+    const setAttributeFromEvent = function (event: Event) {
       const _status = event.type === 'load' ? 'ready' : 'error'
       script?.setAttribute('data-status', _status)
       // handler(_status)
@@ -53,14 +59,14 @@ export default function unityLoader(src: string, {resolve, reject}: IUnityLoader
     handler(script.getAttribute('data-status') as ScriptLoadedStatus)
   }
 
-  const setStateFromEvent = function(event: Event) {
+  const setStateFromEvent = function (event: Event) {
     handler(event.type === 'load' ? 'ready' : 'error')
   }
 
   script.addEventListener('load', setStateFromEvent)
   script.addEventListener('error', setStateFromEvent)
 
-  return function() {
+  return function () {
     if (script) {
       script.removeEventListener('load', setStateFromEvent)
       script.removeEventListener('error', setStateFromEvent)
