@@ -175,6 +175,15 @@ unityContext = new UnityWebgl(
 )
 ```
 
+or
+```js
+// 1. Initialize the unity configuration
+unityContext = new UnityWebgl(options: IUnityConfig)
+
+// 2. Create UnityInstance and render it on the canvas
+unityContext.create(canvasElement: HTMLCanvasElement | string)
+```
+
 ### Options
 
 * `loaderUrl: string`  
@@ -206,10 +215,8 @@ unityContext = new UnityWebgl(
 	Sends a message to the UnityInstance to invoke a public method.
 * `setFullscreen(enabled: boolean)`  
 	Enables or disabled the fullscreen mode of the UnityInstance.
-* `destroy()`  
-	Quits the Unity Instance and clears it from memory.
-
----
+* `unload()`  
+	Quits the Unity instance and clears it from memory so that Unmount from the DOM.
 
 * `on(eventName: string, eventListener: Function)`  
 	Use `instance.on()` to register a method for Unity-script call.
