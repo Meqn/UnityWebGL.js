@@ -1,4 +1,9 @@
-import { CanvasElement, IUnityInstanceParameters, IUnityConfig, UnityInstance } from './types'
+import {
+  CanvasElement,
+  IUnityInstanceParameters,
+  IUnityConfig,
+  UnityInstance
+} from './types'
 import EventBus from './event'
 import unityLoader from './loader'
 import { isPlainObject, queryCanvas } from './utils'
@@ -12,11 +17,13 @@ const DefaultConfig = {
 /**
  * generate UnityInstance parameters
  * @param {object} unityContext unityContext
- * @returns 
+ * @returns
  */
-function generateUnityInstanceParameters(unity: UnityWebgl): IUnityInstanceParameters {
+function generateUnityInstanceParameters(
+  unity: UnityWebgl
+): IUnityInstanceParameters {
   const unityParameters = { ...unity.unityConfig }
-  
+
   unityParameters.print = function (message: string): void {
     unity.emit('debug', message)
   }
@@ -40,7 +47,11 @@ export default class UnityWebgl extends EventBus {
     super()
 
     if (isPlainObject(canvas) && !options) {
-      this.unityConfig = Object.assign({}, DefaultConfig, canvas as IUnityConfig)
+      this.unityConfig = Object.assign(
+        {},
+        DefaultConfig,
+        canvas as IUnityConfig
+      )
     } else {
       this.unityConfig = Object.assign({}, DefaultConfig, options)
       const _canvas = queryCanvas(canvas as CanvasElement)
@@ -64,22 +75,24 @@ export default class UnityWebgl extends EventBus {
 
     this.canvasElement = canvasEl
     const ctx = this
-    const config: IUnityInstanceParameters = generateUnityInstanceParameters(this)
+    const config: IUnityInstanceParameters =
+      generateUnityInstanceParameters(this)
 
     const loader = unityLoader(config.loaderUrl, {
       resolve() {
         try {
-          window.createUnityInstance(
-            canvasEl,
-            config,
-            (val: number) => ctx._setProgression(val)
-          ).then((unity: UnityInstance) => {
-            ctx.unityInstance = unity 
-            ctx.emit('created', unity)
-          }).catch((err: Error) => {
-            ctx.unityInstance = null
-            ctx.emit('error', err)
-          })
+          window
+            .createUnityInstance(canvasEl, config, (val: number) =>
+              ctx._setProgression(val)
+            )
+            .then((unity: UnityInstance) => {
+              ctx.unityInstance = unity
+              ctx.emit('created', unity)
+            })
+            .catch((err: Error) => {
+              ctx.unityInstance = null
+              ctx.emit('error', err)
+            })
         } catch (err) {
           ctx.unityInstance = null
           ctx.emit('error', err)
@@ -96,7 +109,7 @@ export default class UnityWebgl extends EventBus {
       console.error()
     }
   }
-  
+
   /**
    * set Progression
    * @param {number} val progress
@@ -113,16 +126,21 @@ export default class UnityWebgl extends EventBus {
    * @param {string} objectName Unity scene name.
    * @param {string} methodName public method name.
    * @param {any} params an optional method parameter.
-   * @returns 
+   * @returns
    */
-   send(objectName: string, methodName: string, params?: any) {
+  send(objectName: string, methodName: string, params?: any) {
     if (this.unityInstance !== null) {
       if (params === undefined || params === null) {
         this.unityInstance.SendMessage(objectName, methodName)
       } else {
-        const _params = typeof params === 'object' ? JSON.stringify(params) : params
+        const _params =
+          typeof params === 'object' ? JSON.stringify(params) : params
         this.unityInstance.SendMessage(objectName, methodName, _params)
       }
+    } else {
+      console.warn(
+        'UnityWebgl: Unable to Send Message while Unity is not Instantiated.'
+      )
     }
     return this
   }
@@ -134,9 +152,11 @@ export default class UnityWebgl extends EventBus {
    * @public
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/requestPointerLock
    */
-   requestPointerLock(): void {
-    if (this.canvasElement !== null) {
-      this.canvasElement.requestPointerLock()
+  requestPointerLock(): void {
+    const canvasElement =
+      this.canvasElement || this.unityInstance?.Module?.canvas
+    if (canvasElement) {
+      canvasElement.requestPointerLock()
     }
   }
 
@@ -150,46 +170,90 @@ export default class UnityWebgl extends EventBus {
   takeScreenshot(
     dataType: 'image/png' | 'image/jpeg' | 'image/webp' = 'image/jpeg',
     quality?: number
-  ): string | null {
-    if (this.canvasElement !== null) {
-      if (this.unityConfig.webglContextAttributes?.preserveDrawingBuffer !== true) {
-        console.warn("Taking a screenshot requires 'preserveDrawingBuffer'.")
-      }
-      return this.canvasElement.toDataURL(dataType, quality)
+  ): string | undefined {
+    const canvasElement =
+      this.canvasElement || this.unityInstance?.Module?.canvas
+    if (!canvasElement) {
+      console.warn(
+        'UnityWebgl: Unable to Take Screenshot while Unity is not Instantiated or Canvas is not available.'
+      )
+      return
     }
-    return null
+    if (
+      this.unityConfig.webglContextAttributes?.preserveDrawingBuffer !== true
+    ) {
+      console.warn(
+        'UnityWebgl: Taking a screenshot requires "preserveDrawingBuffer".'
+      )
+    }
+    // Takes a screenshot by converting Canvas's render-context's buffer into
+    // a Data URL of the specified data type and quality.
+    return canvasElement.toDataURL(dataType, quality)
   }
 
   /**
    * Enables or disabled the Fullscreen mode of the Unity Instance.
-   * @param {boolean} enabled 
+   * @param {boolean} enabled
    */
-   setFullscreen(enabled: boolean) {
-    if (this.unityInstance !== null) {
-      this.unityInstance.SetFullscreen(enabled ? 1 : 0)
+  setFullscreen(enabled: boolean) {
+    if (!this.unityInstance) {
+      // Guarding the Unity Instance.
+      console.warn(
+        'UnityWebgl: Unable to Set Fullscreen while Unity is not Instantiated.'
+      )
+      return
     }
+
+    this.unityInstance.SetFullscreen(enabled ? 1 : 0)
   }
 
   /**
-   * Quits the Unity Instance and clears it from memory.
+   * Quits the Unity instance and clears it from memory so that Unmount from the DOM.
    */
-   quitUnityInstance() {
-    if (this.unityInstance !== null) {
-      this.unityInstance.Quit().then(() => {
-        this.unityInstance = null
-        this.emit('destroyed')
-      })
+  unload(): Promise<void> {
+    if (this.unityInstance === null) {
+      // Guarding the Unity Instance.
+      console.warn(
+        'UnityWebgl: Unable to Quit Unity while Unity is not Instantiated.'
+      )
+      return Promise.reject()
     }
-  }
-
-  /**
-   * Destroy Unity Instance
-   */
-   destroy() {
+    // Unmount unity.loader.js from the DOM
     if (this.unityLoader) {
       this.unityLoader()
       this.unityLoader = null
     }
-    this.quitUnityInstance()
+    return this.unityInstance.Quit().then(() => {
+      this.unityInstance = null
+      this.emit('destroyed')
+    })
+  }
+
+  /**
+   * Detatches the Unity Instance from the React DOM, by doing so, the Unity
+   * Instance can be unloaded from the memory while the Unity component can be
+   * unmounted safely.
+   *
+   * Warning! This is a workaround for the fact that the Unity WebGL instances
+   * which are build with Unity 2021.2 and newer cannot be unmounted before the
+   * Unity Instance is unloaded.
+   */
+  async destroy(): Promise<void> {
+    if (this.unityInstance === null || !this.unityInstance.Module.canvas) {
+      // Guarding the Unity Instance.
+      console.warn('UnityWebgl: No Unity Instance found.')
+      return Promise.reject()
+    }
+    // Re-attaches the canvas to the body element of the document. This way it
+    // wont be removed from the DOM when the component is unmounted. Then the
+    // canvas will be hidden while it is being unloaded.
+    const canvas = this.unityInstance.Module.canvas as HTMLCanvasElement
+    document.body.appendChild(canvas)
+    canvas.style.display = 'none'
+    // Unloads the Unity Instance.
+    await this.unload()
+    // Eventually the canvas will be removed from the DOM. This has to be done
+    // manually since the canvas is no longer controlled by the React DOM.
+    canvas.remove()
   }
 }

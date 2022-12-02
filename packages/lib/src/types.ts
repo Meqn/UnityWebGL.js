@@ -5,7 +5,7 @@ export interface IWebGLContextAttributes {
   readonly antialias?: boolean
   readonly depth?: boolean
   readonly failIfMajorPerformanceCaveat?: boolean
-  readonly powerPreference?: "default" | "high-performance" | "low-power"
+  readonly powerPreference?: 'default' | 'high-performance' | 'low-power'
   readonly premultipliedAlpha?: boolean
   readonly preserveDrawingBuffer?: boolean
   readonly stencil?: boolean
@@ -106,7 +106,7 @@ export interface IUnityConfig {
  */
 export declare class UnityInstance {
   constructor()
-  
+
   /**
    * Sends a message to the UnityInstance to invoke a public method.
    * @public
@@ -119,14 +119,14 @@ export declare class UnityInstance {
     methodName: string,
     parameter?: string | number | boolean
   ): void
-  
+
   /**
    * Enables or disabled the fullscreen mode of the UnityInstance.
    * @public
    * @param fullScreen sets the fullscreen mode.
    */
   public SetFullscreen(fullScreen: 0 | 1): void
-  
+
   /**
    * Quits the Unity WebGL application
    * and removes it from the memory.
@@ -134,4 +134,14 @@ export declare class UnityInstance {
    * @returns {Promise<void>} a promise whether the application did quit.
    */
   public Quit(): Promise<void>
+
+  /**
+   * The Unity Module.
+   */
+  public Module: {
+    /**
+     * A reference to the Unity Instance's Canvas.
+     */
+    canvas?: HTMLCanvasElement
+  }
 }
