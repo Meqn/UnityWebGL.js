@@ -114,7 +114,7 @@ Unity.create(document.querySelector('#canvas'))
 
 <script>
   import UnityWebgl from 'unity-webgl'
-  import VueUnity from 'Unity-webgl/vue'
+  import VueUnity from 'unity-webgl/vue'
 
   const Unity = new UnityWebgl({
     loaderUrl: '/Build/OUT_BIM.loader.js',
@@ -145,8 +145,8 @@ Unity.create(document.querySelector('#canvas'))
 
 ```html
 <script setup lang="ts">
-import UnityWebgl from 'Unity-webgl';
-import VueUnity from 'Unity-webgl/vue'
+import UnityWebgl from 'unity-webgl';
+import VueUnity from 'unity-webgl/vue'
 
 const Unity = new UnityWebgl({
   loaderUrl: '/Build/OUT_BIM.loader.js',
