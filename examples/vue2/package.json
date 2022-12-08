@@ -9,7 +9,7 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "unity-webgl": "^3.1.1",
+    "unity-webgl": "workspace:*",
     "vue": "^2.7.7",
     "vue-demi": "^0.13.11"
   },
