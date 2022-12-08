@@ -109,7 +109,7 @@ Unity.create(document.querySelector('#canvas'))
 
 ```html
 <template>
-  <VueUnity :unity="unityContext" width="800" heighht="600" />
+  <VueUnity :unity="unityContext" width="800" height="600" />
 </template>
 
 <script>
@@ -159,7 +159,7 @@ Unity.on('device', () => alert('click device ...'))
 </script>
 
 <template>
-  <VueUnity :unity="Unity" width="800" heighht="600" />
+  <VueUnity :unity="Unity" width="800" height="600" />
 </template>
 ```
 </details>
@@ -232,11 +232,6 @@ unityContext.create(canvasElement: HTMLCanvasElement | string)
 	loading progress.
 	```js
 	unityContext.on('progress', (number) => {})
-	```
-* `loaded`  
-	loading completed.
-	```js
-	unityContext.on('loaded', () => {})
 	```
 * `created`  
 	Unity Instance is created.

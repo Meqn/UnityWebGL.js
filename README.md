@@ -23,15 +23,15 @@ npm install unity-webgl
 To make `unity-webgl/vue` work for Vue 2 (`<2.7.0`), you need to have `@vue/composition-api` installed:
 
 ```bash
-npm i -D @vue/composition-api
+npm install @vue/composition-api
 ```
 
 ### browser
 ```bash
-https://cdn.jsdelivr.net/npm/unity-webgl/dist/UnityWebgl.umd.js
+https://cdn.jsdelivr.net/npm/unity-webgl/dist/index.umd.js
 
 # vue component
-https://cdn.jsdelivr.net/npm/unity-webgl/dist/VueUnity.umd.js
+https://cdn.jsdelivr.net/npm/unity-webgl/vue/index.umd.js
 ```
 
 ## Usage
@@ -109,7 +109,7 @@ Unity.create(document.querySelector('#canvas'))
 
 ```html
 <template>
-  <VueUnity :unity="unityContext" width="800" heighht="600" />
+  <VueUnity :unity="unityContext" width="800" height="600" />
 </template>
 
 <script>
@@ -159,7 +159,7 @@ Unity.on('device', () => alert('click device ...'))
 </script>
 
 <template>
-  <VueUnity :unity="Unity" width="800" heighht="600" />
+  <VueUnity :unity="Unity" width="800" height="600" />
 </template>
 ```
 </details>
@@ -232,11 +232,6 @@ unityContext.create(canvasElement: HTMLCanvasElement | string)
 	loading progress.
 	```js
 	unityContext.on('progress', (number) => {})
-	```
-* `loaded`  
-	loading completed.
-	```js
-	unityContext.on('loaded', () => {})
 	```
 * `created`  
 	Unity Instance is created.
