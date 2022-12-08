@@ -23,15 +23,15 @@ npm install unity-webgl
 To make `unity-webgl/vue` work for Vue 2 (`<2.7.0`), you need to have `@vue/composition-api` installed:
 
 ```bash
-npm i -D @vue/composition-api
+npm install @vue/composition-api
 ```
 
 ### browser
 ```bash
-https://cdn.jsdelivr.net/npm/unity-webgl/dist/UnityWebgl.umd.js
+https://cdn.jsdelivr.net/npm/unity-webgl/dist/index.umd.js
 
 # vue component
-https://cdn.jsdelivr.net/npm/unity-webgl/dist/VueUnity.umd.js
+https://cdn.jsdelivr.net/npm/unity-webgl/vue/index.umd.js
 ```
 
 ## Usage
