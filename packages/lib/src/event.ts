@@ -8,11 +8,11 @@ export default class EventBus {
   constructor() {
     if (window !== undefined) {
       if (window[UNITY_GLOBAL_NAME as keyof Window] === undefined) {
-        (window as any)[UNITY_GLOBAL_NAME] = {}
+        ;(window as any)[UNITY_GLOBAL_NAME] = {}
       }
     }
   }
-  
+
   setGlobalName(name: string) {
     if (window[name]) {
       console.error(`UnityWebgl: window.${name} already exists.`)
@@ -24,16 +24,20 @@ export default class EventBus {
     }
   }
 
+  get global_name() {
+    return UNITY_GLOBAL_NAME
+  }
+
   on(eventName: string, eventListener: Function) {
     EventMap.set(eventName, eventListener)
     if (window[UNITY_GLOBAL_NAME as keyof Window] !== undefined) {
-      (window as any)[UNITY_GLOBAL_NAME][eventName] = eventListener
+      ;(window as any)[UNITY_GLOBAL_NAME][eventName] = eventListener
     }
     return this
   }
 
   once(eventName: string, eventListener: Function) {
-    const listener = function(this: EventBus) {
+    const listener = function (this: EventBus) {
       if (eventListener) {
         eventListener.apply(this, arguments)
       }
