@@ -42,7 +42,7 @@ https://cdn.jsdelivr.net/npm/unity-webgl/vue/index.umd.js
 ```html
 <canvas id="canvas" style="width: 100%; height: 100%"></canvas>
 
-<button onclick="onDestroy()">Destroy</button>
+<button onclick="onUnload()">Unload</button>
 <button onclick="onLoad()">Reload</button>
 <button onclick="onFullscreen()">Fullscreen</button>
 
@@ -67,8 +67,8 @@ function postMessage() {
   })
 }
 
-function onDestroy() {
-  Unity.destroy()
+function onUnload() {
+  Unity.unload()
 }
 
 function onLoad() {
@@ -144,7 +144,7 @@ Unity.create(document.querySelector('#canvas'))
 <summary>Vue 3.x</summary>
 
 ```html
-<script setup lang="ts">
+<script setup>
 import UnityWebgl from 'unity-webgl';
 import VueUnity from 'unity-webgl/vue'
 
@@ -210,20 +210,30 @@ unityContext.create(canvasElement: HTMLCanvasElement | string)
 	Uncomment this to separately control WebGL canvas render size and DOM element size. see [unity3d@matchWebGLToCanvasSize](https://issuetracker.unity3d.com/issues/webgl-builds-dont-allow-separate-control-on-canvas-render-buffer-size)
 
 ### Methods
-* `create(canvasElement: HTMLCanvasElement | string)`  
-* `send(objectName: string, methodName: string, params?: any)`  
-	Sends a message to the UnityInstance to invoke a public method.
-* `setFullscreen(enabled: boolean)`  
-	Enables or disabled the fullscreen mode of the UnityInstance.
-* `unload()`  
+
+**Application**
+* `create(canvasElement: HTMLCanvasElement | string): void`  
+  Create UnityInstance and render it on the canvas.
+* `unload(): Promise<void>`  
 	Quits the Unity instance and clears it from memory so that Unmount from the DOM.
 
+**Canvas**
+* `setFullscreen(enabled: boolean): void`  
+	Enables or disabled the fullscreen mode of the UnityInstance.
+* `requestPointerLock(): void`
+  Lets you asynchronously ask for the pointer to be locked on the given Unity Application's Canvas Element.
+* `takeScreenshot(dataType: 'image/png' | 'image/jpeg' | 'image/webp', quality?: number)`
+  Takes a screenshot of the canvas and returns a data URL containing image data.
+
+**Communication**
+* `send(objectName: string, methodName: string, params?: any)`  
+	Sends a message to the UnityInstance to invoke a public method.
 * `on(eventName: string, eventListener: Function)`  
 	Use `instance.on()` to register a method for Unity-script call.
 * `once(eventName: string, eventListener: Function)`  
 * `off(eventName: string)`  
-* `clear()`  
 * `emit(eventName: string)`  
+* `clear()`  
 
 
 ### Events
@@ -263,9 +273,9 @@ unityContext.create(canvasElement: HTMLCanvasElement | string)
 
 **从 Unity 脚本调用 JavaScript 函数**
 
-1. First, you should register a `showDialog` method, which be bind to the `__UnityLib__` global object by default.
+1, First, you should register a `showDialog` method, which be bind to the `__UnityLib__` global object by default.  
 
-   先在前端项目中通过 `Unity.on()` 注册 `showDialog` 方法，该方法会默认绑定在全局对象`__UnityLib__`上。
+先在前端项目中通过 `Unity.on()` 注册 `showDialog` 方法，该方法会默认绑定在全局对象`__UnityLib__`上。
 
 ```js
 // # in webApp
@@ -279,13 +289,12 @@ Unity.on('showDialog', (data) => {
 
 // you also can call function.
 Unity.emit('showDialog', data)
-// or
-window[Unity.global_name].showDialog(data) // 📢 Unity.global_name = __UnityLib__
+// Unity.global_name = __UnityLib__
 ```
 
-2. In the Unity project, add the registered `showDialog` method to the project, and then call those functions directly from your script code. To do so, place files with JavaScript code using the `.jslib` extension under a “Plugins” subfolder in your Assets folder. The plugin file needs to have a syntax like this:
+2, In the Unity project, add the registered `showDialog` method to the project, and then call those functions directly from your script code. To do so, place files with JavaScript code using the `.jslib` extension under a “Plugins” subfolder in your Assets folder. The plugin file needs to have a syntax like this:  
 
-   在Unity项目中，将注册的`showDialog`方法添加到项目中。注意📢 ：请使用 `.jslib` 扩展名将包含 JavaScript 代码的文件放置在 Assets 文件夹中的“Plugins”子文件夹下。插件文件需要有如下所示的语法：
+在Unity项目中，将注册的`showDialog`方法添加到项目中。注意📢 ：请使用 `.jslib` 扩展名将包含 JavaScript 代码的文件放置在 Assets 文件夹中的“Plugins”子文件夹下。插件文件需要有如下所示的语法：
 
 ```js
 // javascript_extend.jslib
@@ -312,17 +321,17 @@ using System.Runtime.InteropServices;
 
 public class NewBehaviourScript : MonoBehaviour {
 
-    [DllImport("__Internal")]
-    private static extern void Hello();
+  [DllImport("__Internal")]
+  private static extern void Hello();
 
-    [DllImport("__Internal")]
-    private static extern void showDialog(string str);
+  [DllImport("__Internal")]
+  private static extern void showDialog(string str);
 
-    void Start() {
-        Hello();
-        
-        showDialog("This is a string.");
-    }
+  void Start() {
+    Hello();
+    
+    showDialog("This is a string.");
+  }
 }
 ```
 
