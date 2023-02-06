@@ -47,7 +47,7 @@ export default defineComponent({
     }
   },
   beforeDestroy() {
-    this.unity?.destroy()
+    this.unity?._unsafe_unload()
   },
   render() {
     unityInstanceIdentifier++

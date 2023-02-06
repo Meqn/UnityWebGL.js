@@ -19,13 +19,13 @@ export default function unityLoader(
 ): (() => void) | void {
   if (!src) {
     reject && reject(new Error('UnityWebgl: loaderUrl not found.'))
-    return void 0
+    return
   }
 
   if (typeof (window as any).createUnityInstance === 'function') {
     // console.warn('UnityWebgl: Unity Loader already exists')
     resolve && resolve()
-    return void 0
+    return
   }
 
   function handler(code: ScriptLoadedStatus) {

@@ -238,7 +238,7 @@ export default class UnityWebgl extends EventBus {
    * which are build with Unity 2021.2 and newer cannot be unmounted before the
    * Unity Instance is unloaded.
    */
-  async destroy(): Promise<void> {
+  async _unsafe_unload(): Promise<void> {
     if (this.unityInstance === null || !this.unityInstance.Module.canvas) {
       // Guarding the Unity Instance.
       console.warn('UnityWebgl: No Unity Instance found.')
