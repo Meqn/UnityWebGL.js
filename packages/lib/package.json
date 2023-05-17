@@ -1,18 +1,18 @@
 {
   "name": "unity-webgl",
-  "version": "3.3.0",
-  "description": "Unity WebGL provides an easy solution for embedding Unity WebGL builds in your webApp or Vue.js project, with two-way communication between your webApp and Unity application with advanced API's. ",
+  "version": "3.4.0",
+  "description": "Unity WebGL provides an easy solution for embedding Unity WebGL builds in your webApp or Vue.js project, with two-way communication between your webApp and Unity application with advanced API's.",
   "keywords": [
-    "unity webGl",
+    "unity webgl",
     "unity",
     "webGL",
     "vue unity",
     "vue unity webgl"
   ],
-  "main": "dist/index.umd.js",
+  "main": "dist/index.js",
   "module": "dist/index.esm.js",
-  "unpkg": "dist/index.umd.js",
-  "jsdelivr": "dist/index.umd.js",
+  "unpkg": "dist/index.iife.js",
+  "jsdelivr": "dist/index.iife.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist",
@@ -21,14 +21,16 @@
   ],
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
       "import": "./dist/index.esm.js",
-      "default": "./dist/index.umd.js",
-      "types": "./dist/index.d.ts"
+      "default": "./dist/index.iife.js"
     },
     "./vue": {
-      "import": "./vue/index.js",
-      "default": "./vue/index.js",
-      "types": "./vue/index.d.ts"
+      "types": "./vue/index.d.ts",
+      "require": "./vue/index.js",
+      "import": "./vue/index.esm.js",
+      "default": "./vue/index.iife.js"
     }
   },
   "homepage": "https://github.com/Meqn/UnityWebGL.js",

@@ -22,13 +22,19 @@ const banner =
 const outputs = [
   {
     name,
+    file: pkg.unpkg,
+    format: 'iife',
+    banner
+  },
+  {
     file: pkg.main,
-    format: 'umd',
+    format: 'cjs',
+    exports: 'default',
     banner
   },
   {
     file: pkg.module,
-    format: 'es',
+    format: 'esm',
     banner
   }
 ]
@@ -51,7 +57,7 @@ function generateLib(outputs) {
       ]
     })
 
-    if (env === 'production' && item.format === 'umd') {
+    if (env === 'production' && item.format === 'iife') {
       config.plugins.push(terser())
     }
 
@@ -65,7 +71,7 @@ export default [
     input: 'src/index.ts',
     plugins: [dts()],
     output: {
-      file: 'dist/index.d.ts',
+      file: pkg.types,
       format: 'es'
     }
   }
