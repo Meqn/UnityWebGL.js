@@ -1,4 +1,13 @@
-import { defineComponent, PropType, h, isVue2 } from 'vue-demi'
+import {
+  defineComponent,
+  PropType,
+  ref,
+  h,
+  isVue2,
+  computed,
+  onMounted,
+  onBeforeUnmount
+} from 'vue-demi'
 import type UnityWebgl from 'unity-webgl'
 
 let unityInstanceIdentifier: number = 0
@@ -31,39 +40,42 @@ export default defineComponent({
       default: '100%'
     }
   },
-  computed: {
-    canvasStyle() {
-      const { width, height } = this
-      return {
-        width: cssUnit(width),
-        height: cssUnit(height)
-      }
-    }
-  },
-  mounted() {
-    const htmlCanvasElement = this.$refs.canvas as HTMLCanvasElement
-    if (htmlCanvasElement) {
-      this.unity?.create(htmlCanvasElement)
-    }
-  },
-  beforeDestroy() {
-    this.unity?._unsafe_unload()
-  },
-  render() {
+  setup(props) {
+    const canvas = ref(null)
     unityInstanceIdentifier++
-    if (isVue2) {
-      return h('canvas', {
-        ref: 'canvas',
-        attrs: {
-          id: `unity-canvas-${unityInstanceIdentifier}`
-        },
-        style: this.canvasStyle
-      })
-    }
-    return h('canvas', {
-      ref: 'canvas',
-      id: `unity-canvas-${unityInstanceIdentifier}`,
-      style: this.canvasStyle
+
+    const canvasStyle = computed(() => {
+      return {
+        width: cssUnit(props.width),
+        height: cssUnit(props.height)
+      }
     })
+
+    onMounted(() => {
+      if (canvas.value) {
+        props.unity?.create(canvas.value)
+      }
+    })
+    onBeforeUnmount(() => {
+      props.unity?._unsafe_unload()
+    })
+
+    return () =>
+      h(
+        'canvas',
+        isVue2
+          ? {
+              ref: canvas,
+              attrs: {
+                id: `unity-canvas-${unityInstanceIdentifier}`
+              },
+              style: canvasStyle.value
+            }
+          : {
+              ref: canvas,
+              id: `unity-canvas-${unityInstanceIdentifier}`,
+              style: canvasStyle.value
+            }
+      )
   }
 })
