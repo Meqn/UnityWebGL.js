@@ -1,3 +1,5 @@
+import { msgPrefix } from './utils'
+
 type ScriptLoadedStatus = 'load' | 'ready' | 'error' | null
 
 interface IUnityLoaderCallbackObj {
@@ -18,7 +20,7 @@ export default function unityLoader(
   { resolve, reject }: IUnityLoaderCallbackObj
 ): (() => void) | void {
   if (!src) {
-    reject && reject(new Error('UnityWebgl: loaderUrl not found.'))
+    reject && reject(new Error(`${msgPrefix} loaderUrl not found.`))
     return
   }
 
@@ -32,7 +34,7 @@ export default function unityLoader(
     if (code === 'ready') {
       resolve && resolve()
     } else {
-      reject && reject(new Error(`'UnityWebgl: ${src}' loading failure.`))
+      reject && reject(new Error(`${msgPrefix} ${src} loading failure.`))
     }
   }
 

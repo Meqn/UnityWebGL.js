@@ -2,8 +2,9 @@
   "name": "unity-webgl/vue",
   "private": true,
   "main": "./index.js",
-  "unpkg": "./index.umd.js",
-  "jsdelivr": "./index.umd.js",
+  "module": "./index.esm.js",
+  "unpkg": "./index.iife.js",
+  "jsdelivr": "./index.iife.js",
   "types": "./index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

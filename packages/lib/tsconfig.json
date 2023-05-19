@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2015",
     // "declaration": true, // 生成相关的 '.d.ts' 文件
     // "declarationMap": false, // 生成定义sourceMap
     // "declarationDir": "./dist", // 定义文件输出目录
