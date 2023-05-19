@@ -40,6 +40,12 @@ importers:
       typescript: 4.8.4
       yorkie: 2.0.0
 
+  examples/cmd:
+    specifiers:
+      unity-webgl: workspace:^3.4.0
+    dependencies:
+      unity-webgl: link:../../packages/lib
+
   examples/vue2:
     specifiers:
       '@types/node': ^16.11.45
@@ -49,13 +55,13 @@ importers:
       npm-run-all: ^4.1.5
       terser: ^5.14.2
       typescript: ~4.7.4
-      unity-webgl: ^3.1.1
+      unity-webgl: workspace:*
       vite: ^3.0.2
       vue: ^2.7.7
       vue-demi: ^0.13.11
       vue-tsc: ^0.38.8
     dependencies:
-      unity-webgl: 3.1.1_vue@2.7.10
+      unity-webgl: link:../../packages/lib
       vue: 2.7.10
       vue-demi: 0.13.11_vue@2.7.10
     devDependencies:
@@ -94,7 +100,7 @@ importers:
       vue: ^3.2.38
       vue-demi: latest
     dependencies:
-      vue-demi: 0.13.11_zv57lmwz3lpne326jxcwg2uc6q
+      vue-demi: 0.14.1_zv57lmwz3lpne326jxcwg2uc6q
     devDependencies:
       '@vue/composition-api': 1.7.1_vue@3.2.40
       vue: 3.2.40
@@ -107,7 +113,7 @@ importers:
       vue-demi: latest
     dependencies:
       unity-webgl: link:../lib
-      vue-demi: 0.13.11_zv57lmwz3lpne326jxcwg2uc6q
+      vue-demi: 0.14.1_zv57lmwz3lpne326jxcwg2uc6q
     devDependencies:
       '@vue/composition-api': 1.7.1_vue@3.2.40
       vue: 3.2.40
@@ -2193,19 +2199,6 @@ packages:
       which-boxed-primitive: 1.0.2
     dev: true
 
-  /unity-webgl/3.1.1_vue@2.7.10:
-    resolution: {integrity: sha512-oMnGmUZrQKT5wC3Ip2Jh8iuWbICxp4DJVxhI0uo+hihHzRZW7SqnSVQxXU+64Nkdhrrx913z0GgMCwWGh3h4Eg==}
-    peerDependencies:
-      '@vue/composition-api': ^1.7.0
-      vue: ^2.5.0 || >=3.0.0
-    peerDependenciesMeta:
-      '@vue/composition-api':
-        optional: true
-    dependencies:
-      vue: 2.7.10
-      vue-demi: 0.13.11_vue@2.7.10
-    dev: false
-
   /universalify/2.0.0:
     resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}
     engines: {node: '>= 10.0.0'}
@@ -2303,8 +2296,8 @@ packages:
       vue: 3.2.40
     dev: false
 
-  /vue-demi/0.13.11_zv57lmwz3lpne326jxcwg2uc6q:
-    resolution: {integrity: sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==}
+  /vue-demi/0.14.1_zv57lmwz3lpne326jxcwg2uc6q:
+    resolution: {integrity: sha512-rt+yuCtXvscYot9SQQj3WKZJVSriPNqVkpVBNEHPzSgBv7QIYzsS410VqVgvx8f9AAPgjg+XPKvmV3vOqqkJQQ==}
     engines: {node: '>=12'}
     hasBin: true
     requiresBuild: true

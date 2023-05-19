@@ -8,7 +8,10 @@
   ],
   "scripts": {
     "preinstall": "node scripts/preinstall",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf node_modules **/*/node_modules dist **/*/dist",
+    "serve": "npx http-server ./ -p 8001",
+    "vue2": "pnpm -F vue2 run dev",
+    "vue3": "pnpm -F vue3 run dev",
     "build:lib": "pnpm --filter unity-webgl build",
     "build:vue": "pnpm --filter unity-webgl/vue build",
     "build": "pnpm run build:lib && pnpm run build:vue && node ./scripts/release.js"
