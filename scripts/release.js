@@ -15,6 +15,13 @@ async function createVueModule() {
     await fse.copy(resolve('packages/lib/README.md'), resolve('README.md'), {
       overwrite: true
     })
+    await fse.copy(
+      resolve('packages/lib/README.zh_CN.md'),
+      resolve('README.zh_CN.md'),
+      {
+        overwrite: true
+      }
+    )
 
     logger.success(`[${logger.colors.gray(name)}]`, 'Build succeeded!')
   } catch (error) {
