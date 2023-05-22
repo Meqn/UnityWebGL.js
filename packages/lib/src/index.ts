@@ -37,7 +37,7 @@ function generateUnityArguments(unity: UnityWebgl): IUnityArguments {
 
 /**
  * UnityWebgl
- * // new UnityWebgl(canvasElement, unityConfig, HolderName)
+ * // new UnityWebgl(canvasElement, unityConfig, bridge)
  */
 export default class UnityWebgl extends EventBus {
   unityConfig: IUnityConfig
@@ -49,28 +49,28 @@ export default class UnityWebgl extends EventBus {
    * UnityWebgl constructor
    * @param canvas htmlCanvasElement
    * @param config configuration
-   * @param bridgeName Bridge name, global communication collector.
+   * @param bridge Bridge name, global communication collector.
    */
-  constructor(config: IUnityConfig, bridgeName?: string)
-  constructor(canvas: CanvasElement, config: IUnityConfig, bridgeName?: string)
+  constructor(config: IUnityConfig, bridge?: string)
+  constructor(canvas: CanvasElement, config: IUnityConfig, bridge?: string)
   constructor(
     canvas: CanvasElement | IUnityConfig,
     config?: IUnityConfig | string,
-    bridgeName?: string
+    bridge?: string
   ) {
     if (window === undefined) {
       throw new Error(msgPrefix + `Must be running in browser.`)
     }
 
-    bridgeName = bridgeName ?? BRIDGE_NAME
+    bridge = bridge ?? BRIDGE_NAME
     if (isPlainObject(canvas) && typeof config === 'string') {
-      bridgeName = config || bridgeName
+      bridge = config || bridge
     }
-    if (bridgeName in window) {
-      log.error(msgPrefix + `window.${bridgeName} already exists.`)
+    if (bridge in window) {
+      log.error(msgPrefix + `window.${bridge} already exists.`)
     }
-    BRIDGE_NAME = bridgeName
-    super((window[bridgeName] = {}))
+    BRIDGE_NAME = bridge
+    super((window[bridge] = {}))
 
     if (isPlainObject(canvas)) {
       this.unityConfig = Object.assign(
@@ -91,10 +91,10 @@ export default class UnityWebgl extends EventBus {
     }
   }
 
-  get bridgeName() {
+  get bridge() {
     return BRIDGE_NAME
   }
-  set bridgeName(name) {
+  set bridge(name) {
     window[name] = window[BRIDGE_NAME]
     delete window[BRIDGE_NAME]
     BRIDGE_NAME = name
