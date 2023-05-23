@@ -17,10 +17,10 @@ UnityWebgl.js 提供了一种简单的解决方案，用于将 `Unity WebGL` 构
 based on [react-unity-webgl](https://github.com/jeffreylanters/react-unity-webgl)
 
 ## Features
-- 📦 无框架限制，支持任何web项目
-- 📬 支持在`WebApp` 和 `Unity` 之间双向通信和交互
-- 💌 使用事件监听机制，调用简单灵活
-- 🧲 按需引入vue组件，兼容[Vue@2.x](https://stackblitz.com/edit/unity-webgl-vue2-demo?file=src%2FApp.vue) 和 [Vue@3.x](https://stackblitz.com/edit/unity-webgl-vue3-demo?file=src%2FApp.vue)
+- 📦 无框架限制，支持任何web项目；
+- 📬 支持在`WebApp` 和 `Unity` 之间双向通信和交互；
+- 💌 使用事件监听机制，调用简单灵活；
+- 🧲 按需引入vue组件，兼容[Vue@2.x](https://stackblitz.com/edit/unity-webgl-vue2-demo?file=src%2FApp.vue) 和 [Vue@3.x](https://stackblitz.com/edit/unity-webgl-vue3-demo?file=src%2FApp.vue)。
 
 
 

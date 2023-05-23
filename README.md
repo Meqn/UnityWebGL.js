@@ -16,7 +16,7 @@ based on [react-unity-webgl](https://github.com/jeffreylanters/react-unity-webgl
 
 ## Features
 - 📦 No framework restrictions, support any web project.
-- 📬 two-way communication and interaction (`webApp`, `Unity`).
+- 📬 two-way communication and interaction (`webApp` & `Unity`).
 - 💌 Built-in event-listening mechanism.
 - 🧲 On-demand import vue component. (Supports [Vue@2.x](https://stackblitz.com/edit/unity-webgl-vue2-demo?file=src%2FApp.vue) & [Vue@3.x](https://stackblitz.com/edit/unity-webgl-vue3-demo?file=src%2FApp.vue))
 
@@ -205,9 +205,9 @@ Quits the Unity instance and clears it from memory so that Unmount from the DOM.
 
 #### `send(objectName: string, methodName: string, params?: any)`  
 ⭐️ Sends a message to the UnityInstance to invoke a public method.
-- `objectName`: Unity场景中对象的名称
-- `methodName`: Unity脚本中方法的名称
-- `params`: 传递的参数
+- `objectName`: Where objectName is the name of an object in your scene.
+- `methodName`: methodName is the name of a C-Sharp method in the script, currently attached to that object.
+- `params`: Parameters can be any type of value or not defined at all.
 
 #### `on(eventName: string, eventListener: Function)`  
 ⭐️ Register an event or method to listen for the trigger event or for the Unity script to call.
