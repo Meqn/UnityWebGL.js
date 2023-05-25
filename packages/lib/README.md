@@ -1,7 +1,8 @@
 # unity-webgl
 
 [![version](https://img.shields.io/npm/v/unity-webgl?style=flat-square)](https://www.npmjs.com/package/unity-webgl)
-[![download](https://img.shields.io/npm/dm/unity-webgl?style=flat-square)](https://www.npmjs.com/package/unity-webgl)
+[![downloads](https://img.shields.io/npm/dm/unity-webgl?style=flat-square)](https://www.npmjs.com/package/unity-webgl)
+[![size](https://img.shields.io/bundlephobia/minzip/unity-webgl?style=flat-square)](https://bundlephobia.com/package/unity-webgl)
 [![languages](https://img.shields.io/github/languages/top/meqn/UnityWebGL.js?style=flat-square)](https://github.com/Meqn/UnityWebGL.js)
 [![license](https://img.shields.io/npm/l/unity-webgl?style=flat-square)](https://github.com/Meqn/UnityWebGL.js)
 
@@ -30,10 +31,10 @@ npm install unity-webgl
 
 ### browser
 ```bash
-https://cdn.jsdelivr.net/npm/unity-webgl/dist/index.iife.js
+https://cdn.jsdelivr.net/npm/unity-webgl/dist/index.global.js
 
 # vue component
-https://cdn.jsdelivr.net/npm/unity-webgl/vue/index.iife.js
+https://cdn.jsdelivr.net/npm/unity-webgl/vue/index.global.js
 ```
 
 ## Usage
@@ -278,7 +279,7 @@ unityContext.on('error', (error) => {})
 
 
 ## Vue component
-Vue组件，兼容 `vue2.x` 和 `vue3.x`
+Vue components, compatible with `vue2.x` and `vue3.x`.
 
 ### props
 - `unity` : UnityWebgl instance.
