@@ -1,4 +1,5 @@
-import path from 'path'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'rollup'
 import typescript from 'rollup-plugin-typescript2'
 import nodeResolve from '@rollup/plugin-node-resolve'
@@ -6,10 +7,11 @@ import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import { terser } from 'rollup-plugin-terser'
 
-import pkg from './package.json'
+import pkg from './package.json' assert { type: 'json' }
 
 const name = 'VueUnity'
 const env = process.env.NODE_ENV
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const outputs = [
   {

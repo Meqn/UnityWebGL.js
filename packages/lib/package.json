@@ -1,7 +1,37 @@
 {
   "name": "unity-webgl",
-  "version": "3.4.0",
+  "version": "3.4.1",
   "description": "Unity-Webgl provides an easy solution for embedding Unity WebGL builds in your webApp or Vue.js project, with two-way communication between your webApp and Unity application with advanced API's.",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "unpkg": "dist/index.global.js",
+  "jsdelivr": "dist/index.global.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.esm.js",
+      "default": "./dist/index.global.js"
+    },
+    "./vue": {
+      "types": "./vue/index.d.ts",
+      "require": "./vue/index.js",
+      "import": "./vue/index.esm.js",
+      "default": "./vue/index.global.js"
+    },
+    "./*": "./*"
+  },
+  "files": [
+    "dist",
+    "types",
+    "vue"
+  ],
+  "scripts": {
+    "clean": "rimraf -rf ./dist && rimraf -rf ./vue",
+    "dev": "NODE_ENV=development rollup -c rollup.config.js -w",
+    "build": "npm run clean && NODE_ENV=production rollup -c rollup.config.mjs"
+  },
   "keywords": [
     "unity webgl",
     "unity",
@@ -10,30 +40,6 @@
     "vue unity",
     "vue unity webgl"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "unpkg": "dist/index.iife.js",
-  "jsdelivr": "dist/index.iife.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "types",
-    "vue"
-  ],
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.esm.js",
-      "default": "./dist/index.iife.js"
-    },
-    "./vue": {
-      "types": "./vue/index.d.ts",
-      "require": "./vue/index.js",
-      "import": "./vue/index.esm.js",
-      "default": "./vue/index.iife.js"
-    }
-  },
   "homepage": "https://github.com/Meqn/UnityWebGL.js",
   "repository": {
     "type": "git",
@@ -43,11 +49,6 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Meqn/UnityWebGL.js/issues"
-  },
-  "scripts": {
-    "clean": "rimraf -rf ./dist && rimraf -rf ./vue",
-    "dev": "NODE_ENV=development rollup -c rollup.config.js -w",
-    "build": "npm run clean && NODE_ENV=production rollup -c rollup.config.js"
   },
   "devDependencies": {
     "@vue/composition-api": "^1.7.0",

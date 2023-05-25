@@ -3,12 +3,12 @@
   "private": true,
   "main": "./index.js",
   "module": "./index.esm.js",
-  "unpkg": "./index.iife.js",
-  "jsdelivr": "./index.iife.js",
+  "unpkg": "./index.global.js",
+  "jsdelivr": "./index.global.js",
   "types": "./index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf -rf ./dist && NODE_ENV=production rollup -c rollup.config.js"
+    "build": "rimraf -rf ./dist && NODE_ENV=production rollup -c rollup.config.mjs"
   },
   "devDependencies": {
     "@vue/composition-api": "^1.7.0",
