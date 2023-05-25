@@ -10,32 +10,62 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <style>
-html,body{ width: 100%; height: 100%; }
+html,body{ width: 800px; height: 600px; }
 </style>
 </head>
 <body>
-  <canvas id="canvas" style="width: 100%; height: 100%"></canvas>
+  <canvas id="canvas" style="width: 800px; height: 600px"></canvas>
 
-<script src="../../packages/lib/dist/UnityWebgl.umd.js"></script>
+  <button onclick="postMessage()">postMessage</button>
+  <button onclick="onFullscreen()">Fullscreen</button>
+  <button onclick="onUnload()">Unload</button>
+  <button onclick="onReload()">Reload</button>
+
+<script src="../../packages/lib/dist/index.global.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  var Unity = new UnityWebgl('#canvas', {
-    loaderUrl: 'https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.loader.js',
-    dataUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.data",
-    frameworkUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.framework.js",
-    codeUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.wasm",
-    streamingAssetsUrl: "StreamingAssets",
-    companyName: "DefaultCompany",
-    productName: "BIM",
-    productVersion: "0.1",
+// document.addEventListener('DOMContentLoaded', function() {
+  var unityContext
+
+  function createUnityWebgl() {
+    unityContext = new UnityWebgl('#canvas', {
+      loaderUrl: 'https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.loader.js',
+      dataUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.data",
+      frameworkUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.framework.js",
+      codeUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.wasm",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName: "DefaultCompany",
+      productName: "BIM",
+      productVersion: "0.1",
+    })
+  }
+  createUnityWebgl()
+
+  unityContext
+    .on('progress', (progress) => console.log('Loaded: ', progress))
+    .on('beforeMount', () => console.log('Unity Instance beforeMount.'))
+    .on('mounted', () => console.log('Unity Instance mounted.'))
+    .on('beforeUnmount', () => console.log('Unity Instance beforeUnmount.'))
+    .on('unmounted', () => console.log('Unity Instance unmounted.'))
+
+function onUnload() {
+  unityContext.unload()
+}
+
+function onReload() {
+  createUnityWebgl()
+}
+
+function onFullscreen() {
+  unityContext.setFullscreen(true)
+}
+
+function postMessage() {
+  unityContext.send('objectName', 'methodName', {
+    id: 'B0001',
+    name: 'Building#1',
+    location: [150, 75]
   })
-
-  Unity
-    .on('progress', percent => console.log('Unity progress: ', percent))
-    .on('loaded', percent => console.log('Unity loaded: success'))
-    .on('created', percent => console.log('Unity created: success'))
-
-})
+}
 </script>
 </body>
 </html>
