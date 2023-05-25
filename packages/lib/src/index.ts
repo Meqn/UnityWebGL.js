@@ -249,13 +249,13 @@ export default class UnityWebgl extends EventBus {
       this.unityLoader = null
     }
     return this.unityInstance.Quit().then(() => {
-      this.unityInstance = null
-      // Clear all events
-      this.clear()
-      delete window[BRIDGE_NAME]
-
       this.emit('unmounted')
       this.emit('destroyed') // todo 待删除
+
+      this.unityInstance = null
+      // Clear all events
+      // this.clear()
+      delete window[BRIDGE_NAME]
     })
   }
 
