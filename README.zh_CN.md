@@ -6,7 +6,7 @@
 [![languages](https://img.shields.io/github/languages/top/meqn/UnityWebGL.js?style=flat-square)](https://github.com/Meqn/UnityWebGL.js)
 [![license](https://img.shields.io/npm/l/unity-webgl?style=flat-square)](https://github.com/Meqn/UnityWebGL.js)
 
-[ [Enlish](https://github.com/Meqn/UnityWebGL.js/blob/main/README.md) | [中文](https://github.com/Meqn/UnityWebGL.js/blob/main/README.zh_CN.md) ]
+[ [English](https://github.com/Meqn/UnityWebGL.js/blob/main/README.md) | [中文](https://github.com/Meqn/UnityWebGL.js/blob/main/README.zh_CN.md) ]
 
 
 
@@ -92,7 +92,12 @@ function onUnload() {
 }
 
 function onReload() {
-  unityContext.create('#canvas')
+  unityContext.reload({
+    loaderUrl: '/Build2/unity.loader.js',
+    dataUrl: "/Build2/unity.data",
+    frameworkUrl: "/Build2/unity.framework.js",
+    codeUrl: "/Build2/unity.wasm",
+  })
 }
 
 function onFullscreen() {
@@ -213,6 +218,10 @@ UnityWebgl 实例方法
 退出Unity实例并将其从内存中清除，以便从DOM中Unmount。此时也会删除所有已注册的方法。  
 > 操作完成之后会触发 `unmounted` 事件
 
+#### `reload(config): void`
+重新载入Unity资源并重建Unit应用实例。
+- `config`: Unity 应用程序的配置项, [@详见](#config)
+
 #### `send(objectName: string, methodName: string, params?: any)`  
 ⭐️ 向Unity实例对象发送消息，调用一个公共方法。
 - `objectName`: Unity场景中对象的名称
@@ -277,6 +286,12 @@ unityContext.on('beforeUnmount', (unityContext) => {})
 Unity实例已退出并将其从内存中清除。
 ```js
 unityContext.on('unmounted', () => {})
+```
+
+#### reload
+Unity实例开始重新载入。
+```js
+unityContext.on('reload', (unityContext) => {})
 ```
 
 #### error
@@ -387,6 +402,11 @@ Unity.send('mainScene', 'init', {
 
 
 ## ChangeLog
+
+### v3.5.0
+#### 🚀 Features
+- feat: 新增 `reload` 方法和事件
+- perf: 优化 `create` 和 `unload` 方法
 
 ### v3.4.0
 #### 🚀 Features
