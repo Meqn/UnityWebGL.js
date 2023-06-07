@@ -100,6 +100,11 @@ export default class UnityWebgl extends EventBus {
     BRIDGE_NAME = name
   }
 
+  /**
+   * 创建 Unity应用实例并渲染至画布
+   * @param canvas 画布
+   * @returns
+   */
   create(canvas: CanvasElement): void {
     if (this.unityInstance && this.canvasElement && this.unityLoader) {
       log.warn('Unity Instance already exists!')
@@ -112,13 +117,13 @@ export default class UnityWebgl extends EventBus {
       return void 0
     }
 
-    this.emit('beforeMount', this)
-
     this.canvasElement = canvasElement
     const ctx = this
     const unityArguments: IUnityArguments = generateUnityArguments(this)
 
-    const loader = unityLoader(this.unityConfig.loaderUrl, {
+    this.emit('beforeMount', this)
+
+    this.unityLoader = unityLoader(this.unityConfig.loaderUrl, {
       resolve() {
         try {
           // Creates the Unity Instance, this method is made available globally by the Unity Loader.
@@ -143,12 +148,25 @@ export default class UnityWebgl extends EventBus {
       reject(e) {
         log.error((<Error>e).message)
       }
-    })
+    }) as () => void
+  }
 
-    if (typeof loader === 'function') {
-      this.unityLoader = loader
-    } else {
-      // log.error()
+  /**
+   * 销毁并重新加载Unity应用
+   * @param config 配置项
+   */
+  reload(config: IUnityConfig): void {
+    const canvasElement =
+      this.canvasElement || this.unityInstance?.Module?.canvas
+
+    if (this.unityInstance && canvasElement) {
+      this.unityInstance.Quit().then(() => {
+        this.unityLoader = null
+        this.unityConfig = Object.assign({}, this.unityConfig, config)
+
+        this.emit('reload', this)
+        this.create(canvasElement)
+      })
     }
   }
 
@@ -244,7 +262,7 @@ export default class UnityWebgl extends EventBus {
     this.emit('beforeUnmount', this)
 
     // Unmount unity.loader.js from the DOM
-    if (this.unityLoader) {
+    if (typeof this.unityLoader === 'function') {
       this.unityLoader()
       this.unityLoader = null
     }
@@ -253,6 +271,7 @@ export default class UnityWebgl extends EventBus {
       this.emit('destroyed') // todo 待删除
 
       this.unityInstance = null
+      this.canvasElement = null
       // Clear all events
       // this.clear()
       delete window[BRIDGE_NAME]
