@@ -6,7 +6,7 @@
 [![languages](https://img.shields.io/github/languages/top/meqn/UnityWebGL.js?style=flat-square)](https://github.com/Meqn/UnityWebGL.js)
 [![license](https://img.shields.io/npm/l/unity-webgl?style=flat-square)](https://github.com/Meqn/UnityWebGL.js)
 
-[ [Enlish](https://github.com/Meqn/UnityWebGL.js/blob/main/README.md) | [中文](https://github.com/Meqn/UnityWebGL.js/blob/main/README.zh_CN.md) ]
+[ [English](https://github.com/Meqn/UnityWebGL.js/blob/main/README.md) | [中文](https://github.com/Meqn/UnityWebGL.js/blob/main/README.zh_CN.md) ]
 
 
 
@@ -88,7 +88,12 @@ function onUnload() {
 }
 
 function onReload() {
-  unityContext.create('#canvas')
+  unityContext.reload({
+    loaderUrl: '/Build2/unity.loader.js',
+    dataUrl: "/Build2/unity.data",
+    frameworkUrl: "/Build2/unity.framework.js",
+    codeUrl: "/Build2/unity.wasm",
+  })
 }
 
 function onFullscreen() {
@@ -204,6 +209,10 @@ Create Unity instances and render them on the canvas.
 Quits the Unity instance and clears it from memory so that Unmount from the DOM.  
 > The `unmounted` event will be triggered after the operation is completed.
 
+#### `reload(config): void`
+Reload Unity resources and rebuild the Unity application instance.
+- `config`: The configuration of Unity application, [@see](#config)
+
 #### `send(objectName: string, methodName: string, params?: any)`  
 ⭐️ Sends a message to the UnityInstance to invoke a public method.
 - `objectName`: Where objectName is the name of an object in your scene.
@@ -268,6 +277,12 @@ unityContext.on('beforeUnmount', (unityContext) => {})
 The Unity instance has been exited and cleared from memory.
 ```js
 unityContext.on('unmounted', () => {})
+```
+
+#### reload
+The Unity instance starts to reload.
+```js
+unityContext.on('reload', (unityContext) => {})
 ```
 
 #### error
@@ -377,6 +392,12 @@ Unity.send('mainScene', 'init', {
 
 
 ## ChangeLog
+
+### v3.5.0
+#### 🚀 Features
+- feat: Add `reload` method and event.
+- perf: Optimize the `create` and `unload` methods.
+
 
 ### v3.4.0
 #### 🚀 Features
