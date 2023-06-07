@@ -24,21 +24,18 @@ html,body{ width: 800px; height: 600px; }
 <script src="../../packages/lib/dist/index.global.js"></script>
 <script>
 // document.addEventListener('DOMContentLoaded', function() {
-  var unityContext
+  
 
-  function createUnityWebgl() {
-    unityContext = new UnityWebgl('#canvas', {
-      loaderUrl: 'https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.loader.js',
-      dataUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.data",
-      frameworkUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.framework.js",
-      codeUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.wasm",
-      streamingAssetsUrl: "StreamingAssets",
-      companyName: "DefaultCompany",
-      productName: "BIM",
-      productVersion: "0.1",
-    })
-  }
-  createUnityWebgl()
+  var unityContext = new UnityWebgl('#canvas', {
+    loaderUrl: 'https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.loader.js',
+    dataUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.data",
+    frameworkUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.framework.js",
+    codeUrl: "https://static-huariot-com.oss-cn-hangzhou.aliyuncs.com/unity/test1/Build/OUT_BIM.wasm",
+    streamingAssetsUrl: "StreamingAssets",
+    companyName: "DefaultCompany",
+    productName: "BIM",
+    productVersion: "0.1",
+  })
 
   unityContext
     .on('progress', (progress) => console.log('Loaded: ', progress))
@@ -46,13 +43,19 @@ html,body{ width: 800px; height: 600px; }
     .on('mounted', () => console.log('Unity Instance mounted.'))
     .on('beforeUnmount', () => console.log('Unity Instance beforeUnmount.'))
     .on('unmounted', () => console.log('Unity Instance unmounted.'))
+    .on('reload', () => console.log('Unity Instance reload.'))
 
 function onUnload() {
   unityContext.unload()
 }
 
 function onReload() {
-  createUnityWebgl()
+  unityContext.reload({
+    /* loaderUrl: "",
+    dataUrl: "",
+    frameworkUrl: "",
+    codeUrl: "", */
+  })
 }
 
 function onFullscreen() {
