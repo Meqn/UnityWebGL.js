@@ -14,7 +14,8 @@
     "vue3": "pnpm -F vue3 run dev",
     "build:lib": "pnpm --filter unity-webgl build",
     "build:vue": "pnpm --filter unity-webgl/vue build",
-    "build": "pnpm run build:lib && pnpm run build:vue && node ./scripts/release.js"
+    "build": "pnpm run build:lib && pnpm run build:vue && node ./scripts/release.js",
+    "test": "jest"
   },
   "gitHooks": {
     "pre-commit": "lint-staged",
@@ -34,10 +35,14 @@
     "@rollup/plugin-commonjs": "^24.1.0",
     "@rollup/plugin-json": "^5.0.2",
     "@rollup/plugin-node-resolve": "^15.0.2",
+    "@types/jest": "^29.5.2",
     "@types/node": "^18.7.14",
     "chalk": "^4.1.2",
     "diy-log": "^2.4.0",
     "fs-extra": "^10.1.0",
+    "jest": "^29.5.0",
+    "jest-canvas-mock": "^2.5.1",
+    "jest-environment-jsdom": "^29.5.0",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "rimraf": "^3.0.2",
@@ -45,6 +50,7 @@
     "rollup-plugin-dts": "^5.3.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.33.0",
+    "ts-jest": "^29.1.0",
     "tslib": "^2.4.0",
     "typescript": "^4.9.5",
     "yorkie": "^2.0.0"
