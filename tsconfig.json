@@ -1,25 +1,16 @@
 {
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "outDir": "dist",
-    "sourceMap": true,
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "strict": true,
-
-    "allowJs": true,
-    "noImplicitAny": false,
-    "noImplicitThis": false,
-
-    "noUnusedLocals": true,
-    "experimentalDecorators": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "removeComments": false,
-    "jsx": "preserve",
-    "lib": ["ESNext", "DOM"],
-    "types": ["node"]
+    "target": "ES2015",
+    "baseUrl": "./",
+    "paths": {
+      "@lib/*": ["./packages/lib/*"],
+      "@vue/*": ["./packages/vue/*"],
+    }
   },
-  "include": ["src", "packages/*/src"]
+  "include": [
+    "packages/*/src/*",
+    "__tests__/*"
+  ],
+  "exclude": ["node_modules"]
 }
