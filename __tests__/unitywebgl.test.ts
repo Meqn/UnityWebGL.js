@@ -27,11 +27,7 @@ const unityInstance = {
 /* const unityInstance = {
   Quit: jest.fn().mockReturnValue(Promise.resolve()),
 } */
-/* ;(window as any).createUnityInstance = () => jest.fn().mockReturnValue(Promise.resolve(() => {
-  console.log('createResults resolve .....')
-  return unityInstance
-}))
-*/
+// ;(window as any).createUnityInstance = jest.fn().mockReturnValue(Promise.resolve(unityInstance))
 
 describe('测试UnityWebgl实例方法', () => {
   let canvasElement
@@ -81,7 +77,7 @@ describe('测试UnityWebgl实例方法', () => {
     expect(unityContext.unityInstance).toEqual(unityInstance)
   })
 
-  test('调用 unload() 实例方法', async () => {
+  test('unload() 实例方法', async () => {
     await unityContext.unload()
 
     expect(loadedFn).toHaveBeenCalled()
@@ -91,7 +87,7 @@ describe('测试UnityWebgl实例方法', () => {
     expect((window as any).bridge).toBeUndefined()
   })
 
-  test('调用 reload() 实例方法&事件', async () => {
+  test('reload() 实例方法&事件', async () => {
     const reloadConfig = {
       loaderUrl: 'reloadLoaderUrl',
       codeUrl: 'reloadCodeUrl',
@@ -118,7 +114,7 @@ describe('测试UnityWebgl实例方法', () => {
     })
   })
 
-  test('调用 send() 实例方法', () => {
+  test('send() 实例方法', () => {
     unityContext.unityInstance = { SendMessage: jest.fn() }
     unityContext.send('testObject', 'testMethod', { message: 'test' })
     expect(unityContext.unityInstance.SendMessage).toHaveBeenCalledWith(
@@ -132,14 +128,14 @@ describe('测试UnityWebgl实例方法', () => {
     expect(unityContext.unityInstance).toBeNull() */
   })
 
-  test('调用 requestPointerLock() 实例方法', () => {
+  test('requestPointerLock() 实例方法', () => {
     const mockRequestPointerLock = jest.fn()
     unityContext.canvasElement = { requestPointerLock: mockRequestPointerLock }
     unityContext.requestPointerLock()
     expect(mockRequestPointerLock).toHaveBeenCalled()
   })
 
-  test('调用 takeScreenshot() 实例方法', () => {
+  test('takeScreenshot() 实例方法', () => {
     unityContext.unityConfig.webglContextAttributes = {
       preserveDrawingBuffer: true
     }
@@ -155,7 +151,7 @@ describe('测试UnityWebgl实例方法', () => {
     expect(result).toBeUndefined() */
   })
 
-  test('调用 setFullscreen() 实例方法', () => {
+  test('setFullscreen() 实例方法', () => {
     unityContext.unityInstance = { SetFullscreen: jest.fn() }
     unityContext.setFullscreen(true)
     expect(unityContext.unityInstance.SetFullscreen).toHaveBeenCalledWith(1)
@@ -213,7 +209,7 @@ describe('测试UnityWebgl分步创建&周期事件', () => {
     expect(unityContext.unityInstance).toBeNull()
   })
 
-  it('调用 create() 实例方法', async () => {
+  it('create() 实例方法', async () => {
     unityContext.create(canvasElement)
 
     await new Promise(resolve => setTimeout(resolve, 10))
