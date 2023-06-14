@@ -155,7 +155,7 @@ export default class UnityWebgl extends EventBus {
    * 销毁并重新加载Unity应用
    * @param config 配置项
    */
-  reload(config: IUnityConfig): void {
+  reload(config?: IUnityConfig): void {
     const canvasElement =
       this.canvasElement || this.unityInstance?.Module?.canvas
 
