@@ -333,7 +333,8 @@ unityContext.emit('showDialog', data)
 mergeInto(LibraryManager.library, {
   // this is you code
   showDialog: function (str) {
-    var data = Pointer_stringify(str);
+    // var data = Pointer_stringify(str);
+    var data = UTF8ToString(str);  // In Unity 2021.2 onwards
     // '__UnityLib__' is a global function collection.
     __UnityLib__.showDialog(data);
   },
