@@ -47,6 +47,7 @@ https://cdn.jsdelivr.net/npm/unity-webgl/vue/index.global.js
 > 只有当`Unity`实例创建成功之后（即触发 `mounted` 事件）才能和web应用程序进行通信和交互。  
 > 建议在打开页面时添加一个 loading，等待Unity资源加载完毕后关闭即可。
 
+### html
 <details>
 <summary>html demo</summary>
 

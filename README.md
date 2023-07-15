@@ -43,6 +43,7 @@ https://cdn.jsdelivr.net/npm/unity-webgl/vue/index.global.js
 > You can only communicate and interact with the web application once the `Unity` instance has been successfully created (i.e. the `mounted` event is triggered).  
 > It is recommended to add a loading when opening a page, wait for Unity resources to finish loading and close it.
 
+### html
 <details>
 <summary>html demo</summary>
 
