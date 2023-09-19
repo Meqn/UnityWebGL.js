@@ -1,4 +1,4 @@
-import { msgPrefix } from './utils'
+import { msgPrefix, isBrowser } from './utils'
 
 type ScriptLoadedStatus = 'load' | 'ready' | 'error' | null
 
@@ -19,6 +19,7 @@ export default function unityLoader(
   src: string,
   { resolve, reject }: IUnityLoaderCallbackObj
 ): (() => void) | void {
+  if (!isBrowser) return
   if (!src) {
     reject && reject(new Error(`${msgPrefix} loaderUrl not found.`))
     return

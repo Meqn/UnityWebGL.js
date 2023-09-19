@@ -6,7 +6,7 @@ import type {
 } from './types'
 import EventBus from './events'
 import unityLoader from './loader'
-import { msgPrefix, log, isPlainObject, queryCanvas } from './utils'
+import { isBrowser, msgPrefix, log, isPlainObject, queryCanvas } from './utils'
 
 let BRIDGE_NAME = '__UnityLib__'
 const defaultConfig = {
@@ -58,10 +58,8 @@ export default class UnityWebgl extends EventBus {
     config?: IUnityConfig | string,
     bridge?: string
   ) {
-    if (window === undefined) {
-      throw new Error(msgPrefix + `Must be running in browser.`)
-    }
-
+    let window
+    window = globalThis || window
     bridge = bridge ?? BRIDGE_NAME
     if (isPlainObject(canvas) && typeof config === 'string') {
       bridge = config || bridge
@@ -106,6 +104,7 @@ export default class UnityWebgl extends EventBus {
    * @returns
    */
   create(canvas: CanvasElement): void {
+    if (!isBrowser) return
     if (this.unityInstance && this.canvasElement && this.unityLoader) {
       log.warn('Unity Instance already exists!')
       return void 0
