@@ -301,6 +301,7 @@ Vue components, compatible with `vue2.x` and `vue3.x`.
 - `unity` : UnityWebgl instance.
 - `width` : canvas element width, default: `100%`
 - `height` : canvas element height, default: `100%`
+- `tabindex` : Set the Canvas element tabindex.
 
 
 

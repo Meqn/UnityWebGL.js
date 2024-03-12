@@ -310,6 +310,7 @@ Vue组件，兼容 `vue2.x` 和 `vue3.x`
 - `unity` : UnityWebgl实例
 - `width` : canvas元素宽度, default: `100%`
 - `height` : canvas元素高度, default: `100%`
+- `tabindex` : 设置Canvas元素tabindex
 
 
 
