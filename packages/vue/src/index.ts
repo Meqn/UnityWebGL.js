@@ -12,17 +12,8 @@ import type UnityWebgl from 'unity-webgl'
 
 let unityInstanceIdentifier: number = 0
 
-function cssUnit(val: string | number): string {
-  const regx = /^\d+(px|em|%|vw|vh|rem)?$/
-  if (typeof val === 'number') {
-    return val + 'px'
-  } else {
-    return regx.test(val)
-      ? isNaN(val as unknown as number)
-        ? val
-        : val + 'px'
-      : '100%'
-  }
+function cssUnit(val: string | number): string | number {
+  return isNaN(val as unknown as number) ? val : val + 'px'
 }
 
 export default defineComponent({
@@ -38,6 +29,9 @@ export default defineComponent({
     height: {
       type: [String, Number] as PropType<string | number>,
       default: '100%'
+    },
+    tabindex: {
+      type: Number as PropType<number | string>
     }
   },
   setup(props) {
@@ -50,6 +44,12 @@ export default defineComponent({
         height: cssUnit(props.height)
       }
     })
+    const attrs: Record<string, string | number> = {
+      id: `unity-canvas-${unityInstanceIdentifier}`
+    }
+    if (props.tabindex || props.tabindex === 0) {
+      attrs.tabindex = props.tabindex
+    }
 
     onMounted(() => {
       if (canvas.value) {
@@ -66,15 +66,13 @@ export default defineComponent({
         isVue2
           ? {
               ref: canvas,
-              attrs: {
-                id: `unity-canvas-${unityInstanceIdentifier}`
-              },
+              attrs,
               style: canvasStyle.value
             }
           : {
               ref: canvas,
-              id: `unity-canvas-${unityInstanceIdentifier}`,
-              style: canvasStyle.value
+              style: canvasStyle.value,
+              ...attrs
             }
       )
   }
