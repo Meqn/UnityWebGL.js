@@ -14,12 +14,6 @@ const config = {
   frameworkUrl: 'testFrameworkUrl'
 }
 
-/**
- * !测试中需要模拟的函数
- * 1. 模拟 unityLoader 方法 (mockLoader)
- * 2. 模拟全局 Unity实例创建函数 `createUnityInstance`
- * 2. 模拟 Unity程序实例 `unityInstance`
- */
 const unityInstance = {
   Quit: async () => {}
 }
@@ -39,7 +33,6 @@ describe('测试UnityWebgl实例方法', () => {
 
   beforeEach(() => {
     loadedFn = jest.fn()
-    // !模拟 unityLoader 方法
     mockLoader = jest
       .spyOn(unityLoaders as any, 'default')
       .mockImplementation((_: any, { resolve }: any): FuncType => {
