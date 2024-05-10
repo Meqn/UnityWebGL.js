@@ -93,6 +93,7 @@ export default class UnityWebgl extends EventBus {
     return BRIDGE_NAME
   }
   set bridge(name) {
+    //!window
     window[name] = window[BRIDGE_NAME]
     delete window[BRIDGE_NAME]
     BRIDGE_NAME = name
@@ -136,16 +137,16 @@ export default class UnityWebgl extends EventBus {
               ctx.emit('mounted', ctx)
             })
             .catch((err: Error) => {
-              ctx.unityInstance = null
-              ctx.emit('error', err)
+              throw err
             })
         } catch (err) {
           ctx.unityInstance = null
           ctx.emit('error', err)
         }
       },
-      reject(e) {
-        log.error((<Error>e).message)
+      reject(err) {
+        log.error((<Error>err).message)
+        ctx.emit('error', err)
       }
     }) as () => void
   }
@@ -165,6 +166,8 @@ export default class UnityWebgl extends EventBus {
 
         this.emit('reload', this)
         this.create(canvasElement)
+      }).catch(err => {
+        this.emit('error', err)
       })
     }
   }
@@ -253,10 +256,10 @@ export default class UnityWebgl extends EventBus {
    * Quits the Unity instance and clears it from memory so that Unmount from the DOM.
    */
   unload(): Promise<void> {
-    if (this.unityInstance === null) {
+    if (!this.unityInstance) {
       // Guarding the Unity Instance.
       log.warn('Unable to Quit Unity while Unity is not Instantiated.')
-      return Promise.reject()
+      return Promise.reject(new Error('Unity is not Instantiated.'))
     }
     this.emit('beforeUnmount', this)
 
@@ -266,15 +269,17 @@ export default class UnityWebgl extends EventBus {
       this.unityLoader = null
     }
     return this.unityInstance.Quit().then(() => {
-      this.emit('unmounted')
-      this.emit('destroyed') // todo 待删除
-
       this.unityInstance = null
       this.canvasElement = null
-      // Clear all events
-      // this.clear()
       delete window[BRIDGE_NAME]
-    })
+      
+      this.emit('unmounted')
+      this.emit('destroyed') // todo 待删除
+    }).catch((err) => {
+      log.error('Unable to Unload Unity')
+      this.emit('error', err)
+      throw err
+    });
   }
 
   /**

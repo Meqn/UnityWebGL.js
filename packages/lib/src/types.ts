@@ -1,4 +1,5 @@
 export type CanvasElement = HTMLCanvasElement | string
+export type BooleanLike = 0 | 1
 
 /**
  * UnityWebgl configuration
@@ -155,6 +156,33 @@ export interface IUnityArguments {
   printError?: (message: string) => void
 }
 
+export type UnityModule = {
+  /**
+   * Stringifies a pointer to a string.
+   * @param pointer The pointer to the string.
+   * @param length The length of the string.
+   * @deprecated Deprecated in Unity 2021.2, use UTF8ToString instead.
+   */
+  Pointer_stringify(pointer: number, length: number): string;
+
+  /**
+   * Converts a pointer to a string.
+   * @param pointer The pointer to the string.
+   */
+  UTF8ToString(pointer: number): string;
+
+  /**
+   * Enables or disabled the fullscreen mode of the UnityInstance.
+   * @param fullScreen sets the fullscreen mode.
+   */
+  SetFullscreen(fullScreen: BooleanLike): void;
+
+  /**
+   * A reference to the Unity Instance's Canvas.
+   */
+  canvas?: HTMLCanvasElement;
+}
+
 /**
  * Type declaration for the UnityInstance.
  */
@@ -182,7 +210,7 @@ export declare class UnityInstance {
    * @public
    * @param fullScreen sets the fullscreen mode.
    */
-  public SetFullscreen(fullScreen: 0 | 1): void
+  public SetFullscreen(fullScreen: BooleanLike): void
 
   /**
    * Quits the Unity WebGL application
@@ -195,12 +223,7 @@ export declare class UnityInstance {
   /**
    * The Unity Module.
    */
-  public Module: {
-    /**
-     * A reference to the Unity Instance's Canvas.
-     */
-    canvas?: HTMLCanvasElement
-  }
+  public Module: UnityModule
 }
 
 /**

@@ -7,7 +7,7 @@ export const isPlainObject: (arg: any) => boolean = arg =>
   Object.prototype.toString.call(arg) === '[object Object]'
 
 export const msgPrefix = '[UnityWebgl]: '
-export function log(msg: string) {
+export const log = (msg: string) => {
   console.log(msgPrefix, msg)
 }
 log.warn = (msg: string) => console.warn(msgPrefix, msg)
