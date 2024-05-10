@@ -25,11 +25,11 @@ export default function unityLoader(
     return
   }
 
-  if (typeof (window as any).createUnityInstance === 'function') {
-    // console.warn('UnityWebgl: Unity Loader already exists')
+  /* if (typeof window.createUnityInstance === 'function') {
+    log('Unity Loader already exists')
     resolve && resolve()
     return
-  }
+  } */
 
   function handler(code: ScriptLoadedStatus) {
     if (code === 'ready') {
@@ -39,16 +39,17 @@ export default function unityLoader(
     }
   }
 
-  let script: HTMLScriptElement | null = document.querySelector(
+  let script: HTMLScriptElement | null = window.document.querySelector(
     `script[src="${src}"]`
   )
   if (script === null) {
-    script = document.createElement('script')
+    script = window.document.createElement('script')
+    script.type = 'text/javascript'
     script.src = src
     script.async = true
     script.setAttribute('data-status', 'loading')
 
-    document.body.appendChild(script)
+    window.document.body.appendChild(script)
 
     const setAttributeFromEvent = function (event: Event) {
       const _status = event.type === 'load' ? 'ready' : 'error'
@@ -73,7 +74,7 @@ export default function unityLoader(
     if (script) {
       script.removeEventListener('load', setStateFromEvent)
       script.removeEventListener('error', setStateFromEvent)
-      document.body.removeChild(script)
+      window.document.body.removeChild(script)
     }
   }
 }
