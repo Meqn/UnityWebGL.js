@@ -27,5 +27,5 @@ unityContext.on('device', () => alert('click device ......'))
 </script>
 
 <template>
-<VueUnity :unity="unityContext" width="800" height="600"></VueUnity>
+<VueUnity :unity="unityContext" width="800" height="600" tabindex="0"></VueUnity>
 </template>

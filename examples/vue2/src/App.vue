@@ -26,6 +26,6 @@ export default {
 
 <template>
   <div id="app">
-    <VueUnity :unity="unityContext" width="800" heighht="600" />
+    <VueUnity :unity="unityContext" width="800" height="600" tabindex="0" />
   </div>
 </template>
