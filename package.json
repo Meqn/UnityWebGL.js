@@ -15,7 +15,7 @@
     "build:lib": "pnpm --filter unity-webgl build",
     "build:vue": "pnpm --filter unity-webgl/vue build",
     "build": "pnpm run build:lib && pnpm run build:vue && node ./scripts/release.js",
-    "publish": "pnpm run build && cd ./packages/lib && npm publish",
+    "pub": "pnpm run build && cd ./packages/lib && npm publish",
     "test": "jest"
   },
   "gitHooks": {
