@@ -31,7 +31,7 @@ export default defineComponent({
       default: '100%'
     },
     tabindex: {
-      type: Number as PropType<number | string>
+      type: [Number, String] as PropType<number | string>
     }
   },
   setup(props) {
